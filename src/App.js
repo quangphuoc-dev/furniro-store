@@ -1,21 +1,22 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Header from "./components/Header";
-import Banner from "./components/Banner";
-import Footer from "./components/Footer";
-import Category from "./components/Category";
-import Product from "./components/Product";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import Layout from "./components/DefaultLayout";
+import ProductPage from "./pages/ProductPage";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
     return (
-        <div className="App">
-            <Header />
-            <Banner />
-            {/* xử lý router */}
-            <Category />
-            <Product />
-            <Footer />
-        </div>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout />} />
+                    <Route index element={<HomePage/>}/>
+                    <Route path="products" element={<ProductPage />} />
+                    <Route 
+                        path="products/productdetails"
+                        element={<ProductDetails />}/>
+                </Routes>
+            </BrowserRouter>
     );
 }
 

@@ -1,6 +1,5 @@
-import Ananas from "../img/ananas shop.jpeg";
-import AnanasText from "../img/ananas text.png";
-import bocongthuong from "../img/icon_bocongthuong.png";
+
+
 function Footer() {
     return (
         <footer className="px-[100px] py-[40px] border-t-4">
