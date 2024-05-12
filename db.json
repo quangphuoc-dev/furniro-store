@@ -1,0 +1,47 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "imgURL": "https://bizweb.dktcdn.net/100/413/756/products/image-1713154286794.png?v=1713157836487",
+            "name": "Adidas VL COURT 3.0 - White",
+            "details": "",
+            "brands": "Adidas",
+            "price": "1.550.000",
+            "gender": "Male",
+            "size": {
+                "size1": 39,
+                "size2": 40,
+                "size3": 41,
+                "size4": 42,
+                "size5": 43,
+                "size6": 44
+            },
+            "Color":"White"
+        }
+    ],
+    "imgProducts": [
+        {
+            "id": 1,
+            "imgProduct1": "https://bizweb.dktcdn.net/100/413/756/products/image-1713154286794.png?v=1713157836487",
+            "imgProduct2": "https://bizweb.dktcdn.net/100/413/756/products/image-1713154286798.png?v=1713157838627",
+            "imgProduct3": "https://bizweb.dktcdn.net/100/413/756/products/image-1713154286802.png?v=1713157840510",
+            "imgProduct4": "https://bizweb.dktcdn.net/100/413/756/products/image-1713154286806.png?v=1713157841403"
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "email": "quangphuoc@gmail.com",
+            "phoneNumber": "0779095590",
+            "address": "Đà Nẵng",
+            "confirmPassword": "12341234",
+            "password": "12341234",
+            "user": "quangphuoctp",
+            "gender": "male",
+            "age": "25",
+            "fullName": "Trần Phước",
+            "dateOfBirth": "1999"
+        }
+    ],
+    "orders": []
+}

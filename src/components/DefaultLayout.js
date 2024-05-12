@@ -4,11 +4,11 @@ import Footer from "./Footer";
 import { Provider } from "react-redux";
 
 
-function Layout({children}) {
+function Layout() {
     return (
         <div >
             <Header/>
-            <main>{children}</main>
+            <main><Outlet/></main>
             <Footer/>
         </div>
     )

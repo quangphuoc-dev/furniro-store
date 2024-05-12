@@ -1,15 +1,15 @@
-import { Outlet } from "react-router-dom";
 import ProductItem from "../components/ProductItem";
-import Layout from "../components/DefaultLayout";
+import ProductInfo from "../components/ProductInfo";
+import ProductRelated from "../components/ProductRelated";
 
-function ProductDetails () {
+function ProductDetails() {
     return (
-    <Layout>
-                <ProductItem />
-
-    </Layout>
-
-    )
+        <div>
+            <ProductItem />
+            <ProductInfo />
+            <ProductRelated />
+        </div>
+    );
 }
 
 export default ProductDetails;

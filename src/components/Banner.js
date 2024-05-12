@@ -1,8 +1,8 @@
-import BannerImg from '../assets/images/banner.png';
+// import BannerImg from '../assets/images/banner.png';
 
 function Banner () {
     return (
-        <div style={{backgroundImage: `url(${BannerImg})`}} className="banner-session w-full h-[718px] bg-cover bg-bottom flex items-center justify-end p-[58px]">
+        <div  className="bg-[url('assets/images/banner.png')] banner-session w-full h-[718px] bg-cover bg-bottom flex items-center justify-end p-[58px]">
             {/* <img className='' src={BannerImg}/> */}
             <div className='bg-[#fff3e3] flex flex-col py-[62px] px-[42px] items-start'>
                 <h3 className='font-[600] text-[16px] text-[#333333] mb-[4px]'>New Arrival</h3>

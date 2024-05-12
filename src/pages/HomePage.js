@@ -7,11 +7,11 @@ import Layout from "../components/DefaultLayout";
 
 function HomePage() {
     return (
-        <Layout>
+        <>
             <Banner />
             <Category />
             <Product />
-        </Layout>
+        </>
     
     );
 }
