@@ -1,6 +1,7 @@
 import BannerShop from "../assets/images/banner-shop.png";
 import ToolbarProduct from "../components/ToolbarProduct";
 import ProductList from "../components/ProductList";
+import QualityDefault from "../components/QualityDefault";
 
 function ProductPage() {
     return (
@@ -21,6 +22,7 @@ function ProductPage() {
             </div>
             <ToolbarProduct />
             <ProductList />
+            <QualityDefault />
             {/* <Footer /> */}
         </div>
     );

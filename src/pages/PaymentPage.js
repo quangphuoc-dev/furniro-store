@@ -1,8 +1,12 @@
+import QualityDefault from "../components/QualityDefault";
+
 function PaymentPage () {
     return (
-        <div>
-            Đây là trang thanh toán
+        <div className="text-center">
+            Vui lòng thanh toán
+            <QualityDefault />
         </div>
+        
     )
 }
 
