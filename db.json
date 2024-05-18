@@ -6,8 +6,9 @@
             "name": "ADIDAS SAMBA OG",
             "details": "",
             "brands": "Adidas",
-            "price": "2.700.000",
-            "gender": "",
+            "price": "2.700.000 đ",
+            "oldPride": "",
+            "oldPrice": "",
             "size": {
                 "size1": 36,
                 "size2": 37,
@@ -19,7 +20,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Cloud White / Core Black / Clear Granite"
+            "color":"Cloud White / Core Black / Clear Granite",
+            "status": {
+                "type":"NEW",
+                "value": ""
+            }
         },
         {
             "id": 2,
@@ -27,7 +32,8 @@
             "name": "ADIDAS BAD BUNNY LAST CAMPUS",
             "details": "",
             "brands": "Adidas",
-            "price": "4.200.000",
+            "price": "2.940.000",
+            "oldPrice": "4.200.000",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -40,7 +46,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"White"
+            "color":"White",
+            "status": {
+                "type":"discount",
+                "value":"-30%"
+            }
         },
         {
             "id": 3,
@@ -49,6 +59,7 @@
             "details": "",
             "brands": "Adidas",
             "price": "3.000.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -61,7 +72,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Cloud White / Core Black / Grey Two"
+            "color":"Cloud White / Core Black / Grey Two",
+            "status": {
+                "type":"NEW",
+                "value": ""
+            }
         },
         {
             "id": 4,
@@ -70,6 +85,7 @@
             "details": "",
             "brands": "Adidas",
             "price": "2.200.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -82,7 +98,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Core Black / Carbon / Matte Silver"
+            "color":"Core Black / Carbon / Matte Silver",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 5,
@@ -90,7 +110,8 @@
             "name": "ADIDAS COUNTRY XLG BOOST",
             "details": "",
             "brands": "Adidas",
-            "price": "3.300.000",
+            "price": "2.310.000",
+            "oldPrice": "3.300.000",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -103,7 +124,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Core Black / Cloud White / Grey One"
+            "color":"Core Black / Cloud White / Grey One",
+            "status": {
+                "type":"discount",
+                "value":"-30%"
+            }
         },
         {
             "id": 6,
@@ -112,6 +137,7 @@
             "details": "",
             "brands": "Adidas",
             "price": "2.200.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -124,7 +150,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Victory Blue / Ivory / Victory Blue"
+            "color":"Victory Blue / Ivory / Victory Blue",
+            "status": {
+                "type":"NEW",
+                "value":""
+            }
         },
         {
             "id": 7,
@@ -133,6 +163,7 @@
             "details": "",
             "brands": "Adidas",
             "price": "2.800.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -145,7 +176,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Cloud White / Crystal White / Cloud White"
+            "color":"Cloud White / Crystal White / Cloud White",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 8,
@@ -154,6 +189,7 @@
             "details": "",
             "brands": "Adidas",
             "price": "3.000.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -166,7 +202,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Cloud White / Core Black / Gum"
+            "color":"Cloud White / Core Black / Gum",
+            "status": {
+                "type":"discount",
+                "value":""
+            }
         },
         {
             "id": 9,
@@ -174,7 +214,8 @@
             "name": "ADIDAS ADIMATIC",
             "details": "",
             "brands": "Adidas",
-            "price": "3.000.000",
+            "price": "2.100.000",
+            "oldPrice": "3.000.000",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -187,7 +228,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"ADIDAS ADIMATIC"
+            "color":"ADIDAS ADIMATIC",
+            "status": {
+                "type":"discount",
+                "value":"-30%"
+            }
         },
         {
             "id": 10,
@@ -196,6 +241,7 @@
             "details": "",
             "brands": "Adidas",
             "price": "3.800.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -208,7 +254,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Cloud White / Bright Blue / Core Black"
+            "color":"Cloud White / Bright Blue / Core Black",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 11,
@@ -217,6 +267,7 @@
             "details": "",
             "brands": "Adidas",
             "price": "1.700.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -229,7 +280,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Core White / Core Black / Core Black"
+            "color":"Core White / Core Black / Core Black",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 12,
@@ -238,6 +293,7 @@
             "details": "",
             "brands": "Adidas",
             "price": "2.600.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -250,7 +306,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Grey Six / Core Black / Grey Six"
+            "color":"Grey Six / Core Black / Grey Six",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 13,
@@ -259,6 +319,7 @@
             "details": "",
             "brands": "Nike",
             "price": "2.929.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -271,7 +332,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"White"
+            "color":"White",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 14,
@@ -280,6 +345,7 @@
             "details": "",
             "brands": "Nike",
             "price": "3.239.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -292,7 +358,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"white"
+            "color":"white",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 15,
@@ -300,7 +370,8 @@
             "name": "NIKE AIR FORCE 1 WILD",
             "details": "",
             "brands": "Nike",
-            "price": "4.109.000",
+            "price": "2.876.300",
+            "oldPrice": "4.109.000",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -313,7 +384,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Sesame/Baroque Brown/Khaki/Sesame"
+            "color":"Sesame/Baroque Brown/Khaki/Sesame",
+            "status": {
+                "type":"discount",
+                "value":"-30%"
+            }
         },
         {
             "id": 16,
@@ -322,6 +397,7 @@
             "details": "",
             "brands": "MLB",
             "price": "4.390.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -334,7 +410,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Gray"
+            "color":"Gray",
+            "status": {
+                "type":"NEW",
+                "value":""
+            }
         },
         {
             "id": 17,
@@ -343,6 +423,7 @@
             "details": "",
             "brands": "MLB",
             "price": "4.390.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -355,7 +436,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Navy"
+            "color":"Navy",
+            "status": {
+                "type":"NEW",
+                "value":""
+            }
         },
         {
             "id": 18,
@@ -364,6 +449,7 @@
             "details": "",
             "brands": "MLB",
             "price": "3.590.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -376,7 +462,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Brown"
+            "color":"Brown",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 19,
@@ -385,6 +475,7 @@
             "details": "",
             "brands": "MLB",
             "price": "3.990.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -397,7 +488,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Black"
+            "color":"Black",
+            "status": {
+                "type":"",
+                "value":""
+            }
         },
         {
             "id": 20,
@@ -406,6 +501,7 @@
             "details": "",
             "brands": "MLB",
             "price": "3.790.000",
+            "oldPrice": "",
             "gender": "",
             "size": {
                 "size1": 36,
@@ -418,7 +514,11 @@
                 "size8": 43,
                 "size9": 44
             },
-            "Color":"Blue"
+            "color":"",
+            "status": {
+                "type":"",
+                "value":""
+            }
         }
         
     ],
@@ -606,5 +706,22 @@
             "dateOfBirth": "1999"
         }
     ],
-    "orders": []
+    "orders": [],
+    "brands": [
+        {
+            "id": 1,
+            "name": "Adidas",
+            "imgURL": "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/04421d64-7214-4718-ba73-93e6d1447bac/air-force-1-mid-07-shoe-9S2mB4.png"
+        },
+        {
+            "id": 2,
+            "name": "Nike",
+            "imgURL": "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/c9d6d008-1ad2-400d-b5a3-c7ba1d8b14d9/air-force-1-wild-shoes-FCjQ2C.png"
+        },
+        {
+            "id": 3,
+            "name": "MLB",
+            "imgURL": "https://product.hstatic.net/200000642007/product/50bks_3asxlmc4n_1_a35a14413c7c4c1c98af65e938f1894c_32d8889824d84756b1369cf72b3fb546_master.jpg"
+        }
+    ]
 }

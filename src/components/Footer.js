@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 function Footer() {
     return (
@@ -29,10 +29,10 @@ function Footer() {
                             </a>
                             <ul className="">
                                 <li className="text-[16px] text-[#000000] font-[500] mb-[45px]">
-                                    Home
+                                    <Link to="/">Home</Link>
                                 </li>
                                 <li className="text-[16px] text-[#000000] font-[500] mb-[45px]">
-                                    Shop
+                                    <Link to="/products">Product</Link>
                                 </li>
                                 <li className="text-[16px] text-[#000000] font-[500] mb-[45px]">
                                     About
@@ -80,7 +80,9 @@ function Footer() {
                 </div>
             </div>
             <div>
-                <p className="text-[16px] text-[#000000] font-[400] py-5 text-left border-t-4">2023 furino. All rights reverved</p>
+                <p className="text-[16px] text-[#000000] font-[400] py-5 text-left border-t-4">
+                    2023 furino. All rights reverved
+                </p>
             </div>
         </footer>
     );

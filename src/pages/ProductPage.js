@@ -2,6 +2,7 @@ import BannerShop from "../assets/images/banner-shop.png";
 import ToolbarProduct from "../components/ToolbarProduct";
 import ProductList from "../components/ProductList";
 import QualityDefault from "../components/QualityDefault";
+import { RightOutlined } from "@ant-design/icons"
 
 function ProductPage() {
     return (
@@ -13,10 +14,12 @@ function ProductPage() {
             >
                 <div className="text-center m-auto">
                     <span className="text-[48px] text-[#000000] font-[500] ">
-                        Shop
+                        Products
                     </span>
                     <p className="text-[16px] text-[#000000] font-[500]">
-                        Home Shop{" "}
+                        Home 
+                        <span><RightOutlined /></span>
+                        Shop
                     </p>
                 </div>
             </div>

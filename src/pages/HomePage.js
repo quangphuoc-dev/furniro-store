@@ -1,13 +1,13 @@
 import Category from "../components/Category";
-import Product from "../components/Product";
 import Banner from "../components/Banner";
+import ProductHome from "../components/ProductHome";
 
 function HomePage() {
     return (
         <>
             <Banner />
             <Category />
-            <Product />
+            <ProductHome />
         </>
     
     );

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import product1 from "../assets/images/product1.png";
 import product2 from "../assets/images/product2.png";
 import product3 from "../assets/images/product3.png";
@@ -102,8 +103,8 @@ function ProductRelated() {
                     </div>
                 </div>
                 <div className="product-btn text-[16px] font-[600] border-solid border-[1px] border-[#b88e2f] w-[245px] h-[48px] flex m-auto justify-center items-center mt-[32px]">
-                    Show More
-                </div>
+                    <Link to="/products">Show More</Link>
+                    </div>
             </div>
         </div>
     );
