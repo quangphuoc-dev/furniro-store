@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import product1 from "../assets/images/product1.png";
-import product2 from "../assets/images/product2.png";
-import product3 from "../assets/images/product3.png";
-import product4 from "../assets/images/product4.png";
-import product5 from "../assets/images/product5.png";
-import product6 from "../assets/images/product6.png";
-import product7 from "../assets/images/product7.png";
-import product8 from "../assets/images/product8.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ProductHome() {
     const [listProducts, setListProducts] = useState([]);
+    const navigate = useNavigate();
+
+    const onViewProductById = (productId) => {
+        navigate(`/products/${productId}`);
+    };
+
     useEffect(() => {
         fetch("http://localhost:4000/products")
             .then((raw) => raw.json())
@@ -34,7 +33,8 @@ function ProductHome() {
             </div>
             <div className="product-items grid-cols-4 inline-grid gap-[32px]">
                 {listProducts.map((item) => (
-                    <div className="hover:cursor-pointer hover:opacity-[0.5]">
+                    <div className="hover:cursor-pointer hover:opacity-[0.5]"
+                    onClick={()=>{onViewProductById(item.id)}}>
                         <div className="relative">
                             <img src={item.imgURL} />
                             {!item.status?.type ? null : item.status?.type ===

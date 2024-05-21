@@ -1,27 +1,30 @@
 import { useEffect, useState } from "react";
-import category1 from "../assets/images/category1.png";
-import category2 from "../assets/images/category2.png";
-import category3 from "../assets/images/category3.png";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Category() {
     const [listBrands, setListBrands] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [brandsWithOneProduct, setBrandsWithOneProduct] = useState([]);
+
     const navigate = useNavigate();
-    
+
     useEffect(() => {
-        fetch("http://localhost:4000/brands")
+        fetch("http://localhost:4000/products")
             .then((raw) => raw.json())
             .then((response) => {
-                setListBrands(response);
+                // Lọc danh sách sản phẩm để chỉ lấy một sản phẩm cho mỗi thương hiệu
+                const uniqueBrands = Array.from(new Set(response.map(product => product.brandId)));
+                const brandsWithOneProduct = uniqueBrands.map(brandId => response.find(product => product.brandId === brandId));
+                setBrandsWithOneProduct(brandsWithOneProduct);
             })
             .catch((error) => {
                 console.log("error", error);
             });
     }, []);
 
-    const onViewProductsByCategory = () => {
-        alert("1");
-        // navigate(`/products/${category}`);
+    // Hàm điều hướng tới trang danh sách sản phẩm theo brandId
+    const onViewProductsByBrandId = (brandId) => {
+        navigate(`/products?brandId=${brandId}`);
     };
 
     return (
@@ -36,17 +39,19 @@ function Category() {
             </div>
             <div>
                 <div className="content-category flex flex-row items-center justify-center gap-[24px]">
-                    {listBrands.map((item) => (
+                    {brandsWithOneProduct.map((item) => (
                         <div
+                            key={item.id}
                             className="hover:cursor-pointer hover:opacity-[0.5]"
-                            onClick={onViewProductsByCategory}
+                            onClick={() => onViewProductsByBrandId(item.id)}
                         >
                             <img
-                                className="w-[381px] h-[480px] "
+                                className="w-[381px] h-[480px]"
                                 src={item.imgURL}
+                                alt={item.name}
                             />
                             <span className="mt-[30px] block text-[24px] text-[#333333] font-[600] text-center">
-                                {item.name}
+                                {item.brandsName}
                             </span>
                         </div>
                     ))}

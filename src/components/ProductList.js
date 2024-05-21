@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ProductList() {
     const [listProducts, setListProducts] = useState([]);
+        const navigate = useNavigate();
+
+const onViewProductById = (productId) => {
+    navigate(`/products/${productId}`);
+}
+
         useEffect(() => {
         fetch("http://localhost:4000/products")
             .then((raw) => raw.json())
             .then((response) => {
-                setListProducts(response.slice(0, 12));
+                setListProducts(response);
             })
             .catch((error) => {
                 console.log('error', error);
@@ -22,7 +28,8 @@ function ProductList() {
             <div className="flex justify-center flex-col">
                 <div className="product-items inline-grid grid-cols-4 gap-[32px] py-[55px] px-[100px] mb-[70px]">
                     {listProducts.map((item) => (
-                        <div>
+                        <div className="hover:cursor-pointer hover:opacity-[0.5]"
+                        onClick={() => {onViewProductById(item.id)}}>
                         <div className="relative">
                             <img src={item.imgURL} />
                             {!item.status?.type ? null : item.status?.type ===

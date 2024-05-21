@@ -1,35 +1,76 @@
-import AsgaardImg1 from "../assets/images/Asgaard sofa.png";
-import AsgaardImg2 from "../assets/images/Asgaard sofa2.png";
-import AsgaardImg3 from "../assets/images/Asgaard sofa3.png";
-import AsgaardImg4 from "../assets/images/Asgaard sofa4.png";
-import AsgaardImg5 from "../assets/images/Asgaard sofa5.png";
 import {
     StarOutlined,
     FacebookOutlined,
     LinkedinOutlined,
     TwitterOutlined,
 } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Image } from 'antd';
+
 
 function ProductItem() {
+    const [productItem, setProductItem] = useState([]);
+    const { productId } = useParams();
+    const [currentImage, setCurrentImage] = useState([0]);
+
+    useEffect(() => {
+        fetch(`http://localhost:4000/products?id=${productId}`)
+            .then((raw) => raw.json())
+            .then((response) => {
+                setProductItem(response[0]);
+                setCurrentImage(response[0]?.listImg[0]?.imgUrl);
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
+    }, []);
     return (
         <div className="product-item px-[100px] py-[40px] flex gap-[82px]">
             <div className="product-img flex-1 flex gap-[32px] ">
                 <div className="flex flex-col gap-[32px]">
-                    <img className="bg-[#F9F1E7]" src={AsgaardImg2} />
-                    <img className="bg-[#F9F1E7]" src={AsgaardImg3} />
-                    <img className="bg-[#F9F1E7]" src={AsgaardImg4} />
-                    <img className="bg-[#F9F1E7]" src={AsgaardImg5} />
+                    {Array.isArray(productItem.listImg) && productItem.listImg.map((image, index) => (
+                        <img
+                            key={index}
+                            src={image.imgUrl}
+                            alt={`thumbnail-${index}`}
+                            onClick={() => setCurrentImage(image.imgUrl)}
+                            className={currentImage === image.imgUrl ? "active w-[80px] h-[80px]" : "w-[80px] h-[80px]"}
+                        />
+                    ))}
+                    {/* <img
+                        className="bg-[#F9F1E7] w-[76px] h-[80px]"
+                        src={productItem?.listImg?.imgProduct1}
+                    />
+                    <img
+                        className="bg-[#F9F1E7] w-[76px] h-[80px]"
+                        src={productItem?.listImg?.imgProduct2}
+                    />
+                    <img
+                        className="bg-[#F9F1E7] w-[76px] h-[80px]"
+                        src={productItem?.listImg?.imgProduct3}
+                    />
+                    <img
+                        className="bg-[#F9F1E7] w-[76px] h-[80px]"
+                        src={productItem?.listImg?.imgProduct4}
+                    /> */}
                 </div>
                 <div>
-                    <img className="bg-[#F9F1E7] h-[500px]" src={AsgaardImg1} />
+                    <Image
+                        width={500}
+                        height={500}
+                        // src={productItem.imgURL}
+                        src={currentImage}
+                        alt="current"
+                    />
                 </div>
             </div>
             <div className="product-info flex-1">
                 <span className="text-[42px] text-[#000000] font-[400] block mb-[16px]">
-                    Asgaard sofa
+                    {productItem.name}
                 </span>
                 <span className="text-[24px] text-[#9f9f9f] font-[500] mb-[16px]">
-                    Rs. 250,000.00
+                    {productItem.price}
                 </span>
                 <div className="flex mb-[16px]">
                     <div className="justify-items-center pr-5 flex gap-1">
@@ -63,14 +104,32 @@ function ProductItem() {
                     Size
                 </span>
                 <div className="flex gap-3">
-                    <span className="bg-[#b88e2f] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
-                        L
+                    <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
+                        {productItem?.size?.size1}
                     </span>
                     <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
-                        XL
+                        {productItem?.size?.size2}
                     </span>
                     <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
-                        XS
+                        {productItem?.size?.size3}
+                    </span>
+                    <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
+                        {productItem?.size?.size4}
+                    </span>
+                    <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
+                        {productItem?.size?.size5}
+                    </span>
+                    <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
+                        {productItem?.size?.size6}
+                    </span>
+                    <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
+                        {productItem?.size?.size7}
+                    </span>
+                    <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
+                        {productItem?.size?.size8}
+                    </span>
+                    <span className="bg-[#F9F1E7] text-[13px] text-[#000000] font-[400] rounded-[5px] w-[30px] h-[30px] text-center">
+                        {productItem?.size?.size9}
                     </span>
                 </div>
                 <span className="text-[14px] text-[#9f9f9f] font-[400] my-[8px] block">
@@ -78,7 +137,7 @@ function ProductItem() {
                 </span>
                 <div className="mb-[8px] flex gap-3">
                     <span className="text-[24px] text-[#000000] font-[500] mb-[8px]">
-                        color
+                        {productItem.color}
                     </span>
                     {/* <span className="bg-[#816dfa] w-[30px] h-[30px] rounded-[50px] block"></span>
                     <span className="bg-[#000000] w-[30px] h-[30px] rounded-[50px] block"></span>

@@ -1,27 +1,26 @@
-import {
-    FilterOutlined,
-    AppstoreOutlined,
-    BorderlessTableOutlined,
-} from "@ant-design/icons";
-import { Select } from 'antd';
-
+// import {
+//     FilterOutlined,
+//     AppstoreOutlined,
+//     BorderlessTableOutlined,
+// } from "@ant-design/icons";
+import { Select } from "antd";
 
 function ToolbarProduct() {
     const onChange = (value) => {
         console.log(`selected ${value}`);
-      };
-      const onSearch = (value) => {
-        console.log('search:', value);
-      };
-      
-      // Filter `option.label` match the user type `input`
-      const filterOption = (input, option) =>
-        (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+    };
+    const onSearch = (value) => {
+        console.log("search:", value);
+    };
+
+    // Filter `option.label` match the user type `input`
+    const filterOption = (input, option) =>
+        (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
     return (
         <div className="tool-bar h-[100px] bg-[#f9f1e7] flex justify-evenly items-center gap-[348px]">
             <div className="grid grid-cols-2 justify-evenly items-center ">
-                <div className="flex justify-evenly">
+                {/* <div className="flex justify-evenly">
                     <span>
                         <FilterOutlined />
                         <span className="pl-[8px] text-[16px] text-[#000000] font-[400]">
@@ -34,7 +33,7 @@ function ToolbarProduct() {
                     <span>
                         <BorderlessTableOutlined />
                     </span>
-                </div>
+                </div> */}
                 <div>
                     <p className="pl-[32px] border-l-4 text-[16px] text-[#000000] font-[400]">
                         Showing 1-16 of 32 results
@@ -57,23 +56,24 @@ function ToolbarProduct() {
                         onChange={onChange}
                         onSearch={onSearch}
                         filterOption={filterOption}
+                        defaultValue="16"
                         options={[
                             {
-                                value: "10",
-                                label: "10",
+                                value: "8",
+                                label: "8",
                             },
                             {
-                                value: "20",
-                                label: "20",
+                                value: "16",
+                                label: "16",
                             },
                             {
-                                value: "30",
-                                label: "30",
+                                value: "32",
+                                label: "32",
                             },
                             {
-                                value: "40",
-                                label: "40",
-                            }
+                                value: "48",
+                                label: "48",
+                            },
                         ]}
                     />
                 </div>
@@ -91,7 +91,12 @@ function ToolbarProduct() {
                         onChange={onChange}
                         onSearch={onSearch}
                         filterOption={filterOption}
+                        defaultValue="All"
                         options={[
+                            {
+                                value: "All",
+                                label: "All",
+                            },
                             {
                                 value: "adidas",
                                 label: "Adidas",
@@ -106,7 +111,6 @@ function ToolbarProduct() {
                             },
                         ]}
                     />
-                    
                 </div>
             </div>
         </div>
