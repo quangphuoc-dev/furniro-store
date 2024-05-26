@@ -1,404 +1,177 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Col, Pagination, Row, Select } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    actFetchAllProducts,
+    filterReducer,
+    setNewPage,
+} from "../redux/features/productSlice";
+import SpinFC from "antd/es/spin";
+import { globalNavigate } from "../utils/globalHistory"; // Import globalNavigate
 
-function ProductList() {
-    const [listProducts, setListProducts] = useState([]);
-        const navigate = useNavigate();
+const ProductList = () => {
+    const dispatch = useDispatch();
+    const { isLoading, products, pagination, searchKey, params } = useSelector(
+        (state) => state.product
+    );
 
-const onViewProductById = (productId) => {
-    navigate(`/products/${productId}`);
-}
-
-        useEffect(() => {
-        fetch("http://localhost:4000/products")
-            .then((raw) => raw.json())
-            .then((response) => {
-                setListProducts(response);
+    // Fetch danh sách sản phẩm khi component được render
+    useEffect(() => {
+        dispatch(
+            actFetchAllProducts({
+                _page: 1,
+                _limit: pagination.limitPerPage,
+                q: params.search,
+                ...params,
             })
-            .catch((error) => {
-                console.log('error', error);
-            });
-        }, []);
+        );
+        return () => {
+            dispatch(setNewPage(1)); // Reset trang về 1 khi component unmount
+        };
+        // eslint-disable-next-line
+    }, []);
+
+    // Xử lý thay đổi trang
+    const handleChangePage = (newPage) => {
+        dispatch(setNewPage(newPage));
+        dispatch(
+            actFetchAllProducts({
+                _page: newPage,
+                _limit: pagination.limitPerPage,
+                q: searchKey,
+                ...params,
+            })
+        );
+    };
+
+    // Fetch lại danh sách sản phẩm khi thay đổi từ khóa tìm kiếm
+    useEffect(() => {
+        dispatch(
+            actFetchAllProducts({
+                _page: 1,
+                _limit: pagination.limitPerPage,
+                q: searchKey,
+                ...params,
+            })
+        );
+        // eslint-disable-next-line
+    }, [searchKey]);
+
+    // Xử lý thay đổi filter
+    const handleFilterChange = async (valueFilter) => {
+        dispatch(filterReducer(valueFilter));
+    };
+
+    // Fetch lại danh sách sản phẩm khi thay đổi filter
+    const { filter } = useSelector((state) => state.product);
+    useEffect(() => {
+        dispatch(
+            actFetchAllProducts({
+                _page: 1,
+                _limit: pagination.limitPerPage,
+                q: searchKey,
+                ...params,
+            })
+        );
+        // eslint-disable-next-line
+    }, [filter]);
+
+    // Hiển thị loading khi đang fetch dữ liệu
+    if (isLoading) {
+        return <SpinFC />;
+    }
+
+    // Render danh sách sản phẩm
+    const renderProducts = (products) => {
+        return products.map((product) => {
+            return (
+                <Col key={product.id} xs={12} sm={8} md={6}>
+                    <div
+                        className="product-card"
+                        onClick={() => handleProductClick(product.id)}
+                    >
+                        <img src={product.imgURL} alt={product.name} />
+                        <div>
+                            <h3>{product.name}</h3>
+                            <p>{product.brands}</p>
+                            <div>
+                                <span>{product.price}</span>
+                                <span>{product.oldPrice}</span>
+                            </div>
+                        </div>
+                    </div>
+                </Col>
+            );
+        });
+    };
+
+    // Xử lý khi click vào sản phẩm để chuyển đến trang detailProduct
+    const handleProductClick = (productId) => {
+        globalNavigate(`/products/${productId}`); // Sử dụng globalNavigate để điều hướng đến trang detailProduct
+    };
 
     return (
-        
+        <div className="list-product">
+            {/* Filter Options */}
+            <div className="list-product__filter-grp">
+                {/* Dropdown filter giá */}
+                <Select
+                    defaultValue="Lọc theo giá:"
+                    style={{ width: 188 }}
+                    onChange={handleFilterChange}
+                    options={[
+                        { value: "dưới 1.500.000đ", label: "Dưới 1.500.000đ" },
+                        {
+                            value: "1.500.000đ - 5.000.000đ",
+                            label: "1.500.000đ - 5.000.000đ",
+                        },
+                        {
+                            value: "5.000.000đ - 10.000.000đ",
+                            label: "5.000.000đ - 10.000.000đ",
+                        },
+                        {
+                            value: "trên 10.000.000đ",
+                            label: "Trên 10.000.000đ",
+                        },
+                    ]}
+                />
 
-        <div className="flex justify-center flex-col items-center">
-            <div className="toolbar"></div>
-            <div className="flex justify-center flex-col">
-                <div className="product-items inline-grid grid-cols-4 gap-[32px] py-[55px] px-[100px] mb-[70px]">
-                    {listProducts.map((item) => (
-                        <div className="hover:cursor-pointer hover:opacity-[0.5]"
-                        onClick={() => {onViewProductById(item.id)}}>
-                        <div className="relative">
-                            <img src={item.imgURL} />
-                            {!item.status?.type ? null : item.status?.type ===
-                              "NEW" ? (
-                                <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#71e9a3] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                    New
-                                </div>
-                            ) : (
-                                <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#e97171] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                    {item.status?.value}
-                                </div>
-                            )}
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                {item.name}
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                {item.brands}
-                            </p>
-                            <div>
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px]">
-                                    {item.price}
-                                </span>
-                                <span className="text-[16px] leading-[1.5] text-[#b0b0b0] font-[400] line-through">
-                                    {item.oldPrice}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    ))}
-                    
-                    {/* <div>
-                        <div className="">
-                            <img src={product2} />
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Leviosa
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Stylish cafe chair
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 2.500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product3} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#e97171] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -50%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Lolito
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Luxury big sofa
-                            </p>
-                            <div>
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px]">
-                                    Rp 7.000.000
-                                </span>
-                                <span className="text-[16px] leading-[1.5] text-[#b0b0b0] font-[400] line-through">
-                                    Rp 14.000.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product4} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#2ec1ac] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -30%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Respira
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Outdoor bar table and stool
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="">
-                            <img src={product5} />
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Grifo
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Night lamp
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 1.500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product6} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#2ec1ac] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -30%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Muggo
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Small mug
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 150.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product7} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#e97171] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -50%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Pingky
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Cute bed set
-                            </p>
-                            <div>
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px]">
-                                    Rp 7.000.000
-                                </span>
-                                <span className="text-[16px] leading-[1.5] text-[#b0b0b0] font-[400] line-through">
-                                    Rp 14.000.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product8} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#2ec1ac] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -30%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Potty
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Minimalist flower pot
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product1} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#e97171] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -30%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Syltherine
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Stylish cafe chair
-                            </p>
-                            <div>
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px]">
-                                    Rp 2.500.000
-                                </span>
-                                <span className="text-[16px] leading-[1.5] text-[#b0b0b0] font-[400] line-through">
-                                    Rp 3.500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="">
-                            <img src={product2} />
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Leviosa
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Stylish cafe chair
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 2.500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product3} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#e97171] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -50%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Lolito
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Luxury big sofa
-                            </p>
-                            <div>
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px]">
-                                    Rp 7.000.000
-                                </span>
-                                <span className="text-[16px] leading-[1.5] text-[#b0b0b0] font-[400] line-through">
-                                    Rp 14.000.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product4} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#2ec1ac] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -30%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Respira
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Outdoor bar table and stool
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="">
-                            <img src={product5} />
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Grifo
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Night lamp
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 1.500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product6} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#2ec1ac] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -30%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Muggo
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Small mug
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 150.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product7} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#e97171] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -50%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Pingky
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Cute bed set
-                            </p>
-                            <div>
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px]">
-                                    Rp 7.000.000
-                                </span>
-                                <span className="text-[16px] leading-[1.5] text-[#b0b0b0] font-[400] line-through">
-                                    Rp 14.000.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="relative">
-                            <img src={product8} />
-                            <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#2ec1ac] w-[48px] h-[48px] absolute top-[24px] right-[24px]">
-                                -30%
-                            </div>
-                        </div>
-                        <div className="bg-[#f4f5f7]   h-[145px]">
-                            <span className="text-[24px] leading-[1.2] text-[#3a3a3a] font-[600] block pt-[16px]">
-                                Potty
-                            </span>
-                            <p className="text-[16px] leading-[1.5] text-[#898989] font-[500] py-[8px]">
-                                Minimalist flower pot
-                            </p>
-                            <div className="mx-[16px]">
-                                <span className="text-[20px] leading-[1.5] text-[3a3a3a] font-[600] pr-[16px] block text-left">
-                                    Rp 500.000
-                                </span>
-                            </div>
-                        </div>
-                    </div> */}
-                </div>
+                {/* Dropdown sắp xếp */}
+                <Select
+                    defaultValue="Sắp xếp theo:"
+                    style={{ width: 150 }}
+                    onChange={handleFilterChange}
+                    options={[
+                        { value: "Tên: A-Z", label: "Tên: A-Z" },
+                        { value: "Tên: Z-A", label: "Tên: Z-A" },
+                        {
+                            value: "Giá: Thấp đến cao",
+                            label: "Giá: Thấp đến cao",
+                        },
+                        {
+                            value: "Giá: Cao đến thấp",
+                            label: "Giá: Cao đến thấp",
+                        },
+                    ]}
+                />
             </div>
 
-            <div className="pagination flex justify-center gap-[38px] mb-[85px]">
-                <button className="bg-[#b88e2f] rounded-[10px] w-[60px] h-[60px] flex justify-center items-center">
-                    1
-                </button>
-                <button className="bg-[#b88e2f] rounded-[10px] w-[60px] h-[60px] flex justify-center items-center">
-                    2
-                </button>
-                <button className="bg-[#b88e2f] rounded-[10px] w-[60px] h-[60px] flex justify-center items-center">
-                    3
-                </button>
-                <button className="bg-[#b88e2f] rounded-[10px] w-[98px] h-[60px] flex justify-center items-center">
-                    Next
-                </button>
+            {/* Danh sách sản phẩm */}
+            <div className="list-product__items">
+                <Row gutter={16}>{renderProducts(products)}</Row>
+            </div>
+
+            {/* Pagination */}
+            <div className="list-product__pagination">
+                <Pagination
+                    pageSize={pagination.limitPerPage}
+                    current={pagination.currentPage}
+                    total={pagination.total}
+                    onChange={handleChangePage}
+                />
             </div>
         </div>
     );
-}
+};
 
 export default ProductList;

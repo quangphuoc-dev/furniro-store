@@ -1,5 +1,6 @@
 import axios from "axios"; // Import thư viện axios để thực hiện các yêu cầu HTTP
 
+
 export const userApis = {
     // Hàm tạo người dùng mới
     createNewUser: async (user) => {
@@ -12,6 +13,7 @@ export const userApis = {
         // Gửi yêu cầu GET tới endpoint /users với các tham số truy vấn nếu có
         const { data } = await axios.get(
             `${process.env.REACT_APP_BE_URL}users`,
+
             {
                 params: params, // Truyền các tham số truy vấn vào yêu cầu
             }

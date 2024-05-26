@@ -3,11 +3,15 @@ import ToolbarProduct from "../components/ToolbarProduct";
 import ProductList from "../components/ProductList";
 import QualityDefault from "../components/QualityDefault";
 import { RightOutlined } from "@ant-design/icons"
+import { useEffect } from "react";
 
 function ProductPage() {
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    }, [])
+
     return (
         <div>
-            {/* <Header /> */}
             <div
                 style={{ backgroundImage: `url(${BannerShop})` }}
                 className="banner-shop w-full h-[316px] bg-cover bg-bottom flex"
@@ -23,10 +27,9 @@ function ProductPage() {
                     </p>
                 </div>
             </div>
-            <ToolbarProduct />
+            {/* <ToolbarProduct /> */}
             <ProductList />
             <QualityDefault />
-            {/* <Footer /> */}
         </div>
     );
 }
