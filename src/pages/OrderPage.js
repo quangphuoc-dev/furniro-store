@@ -4,7 +4,7 @@ import BillingDetails from "../components/BillingDetails"; // Import component c
 import YourOrder from "../components/YourOrder"; // Import component thông tin đơn hàng
 import { Col, Row } from "antd"; // Import các component lưới từ Ant Design
 import * as Yup from "yup"; // Import thư viện Yup để xác thực form
-import { Button } from "antd/es"; // Import component Button từ Ant Design
+import { Button } from "antd"; // Import component Button từ Ant Design
 import { yupResolver } from "@hookform/resolvers/yup"; // Import resolver của Yup cho React Hook Form
 import { useForm } from "react-hook-form"; // Import hook useForm từ React Hook Form
 import { actAddOrder, clearOrder } from "../redux/features/orderSlice"; // Import các action từ orderSlice

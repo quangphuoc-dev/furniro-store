@@ -60,11 +60,6 @@ function App() {
                         path={ROUTES.DETAIL_PRODUCT_PAGE}
                         element={<ProductDetails />}
                     />
-                    <Route path={ROUTES.LOGIN_PAGE} element={<LoginPage />} />
-                    <Route
-                        path={ROUTES.REGISTER_PAGE}
-                        element={<RegisterPage />}
-                    />
                     <Route
                         path={ROUTES.PAYMENT_PAGE}
                         element={<PaymentPage />}
@@ -91,6 +86,8 @@ function App() {
                         element={<UserAddressPage />}
                     />
                 </Route>
+                <Route path={ROUTES.LOGIN_PAGE} element={<LoginPage />} />
+                <Route path={ROUTES.REGISTER_PAGE} element={<RegisterPage />} />
                 <Route path="/" element={<Navigate to={ROUTES.HOME_PAGE} />} />
             </Routes>
         </BrowserRouter>

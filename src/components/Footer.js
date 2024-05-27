@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ROUTES } from "../constants/routes";
 
 function Footer() {
     return (
@@ -8,7 +9,7 @@ function Footer() {
                     <div className="grid grid-cols-4">
                         <div className="">
                             <a
-                                href="#"
+                                href={ROUTES.HOME_PAGE}
                                 className="font-[700] text-[24px] text-[#000000] block mb-[32px]"
                             >
                                 Furniro.
@@ -22,17 +23,19 @@ function Footer() {
                         </div>
                         <div>
                             <a
-                                href="#"
+                                href={ROUTES.HOME_PAGE}
                                 className="font-[500] text-[16px] text-[#9f9f9f] block mb-[32px] "
                             >
                                 Link
                             </a>
                             <ul className="">
                                 <li className="text-[16px] text-[#000000] font-[500] mb-[45px]">
-                                    <Link to="/">Home</Link>
+                                    <Link to={ROUTES.HOME_PAGE}>Home</Link>
                                 </li>
                                 <li className="text-[16px] text-[#000000] font-[500] mb-[45px]">
-                                    <Link to="/products">Product</Link>
+                                    <Link to={ROUTES.PRODUCT_PAGE}>
+                                        Product
+                                    </Link>
                                 </li>
                                 <li className="text-[16px] text-[#000000] font-[500] mb-[45px]">
                                     About
@@ -44,7 +47,7 @@ function Footer() {
                         </div>
                         <div>
                             <a
-                                href="#"
+                                href={ROUTES.HOME_PAGE}
                                 className="font-[500] text-[16px] text-[#9f9f9f] block mb-[32px]"
                             >
                                 Help
@@ -63,17 +66,21 @@ function Footer() {
                         </div>
                         <div>
                             <a
-                                href="#"
+                                href={ROUTES.HOME_PAGE}
                                 className="font-[500] text-[16px] text-[#9f9f9f] block mb-[32px]"
                             >
                                 Newsletter
                             </a>
-                            <div>
+                            <div className="flex">
                                 <input
                                     className="border-b-4 mr-[40px]"
                                     placeholder="Enter Your Email Address"
                                 />
-                                <a className="border-b-4 uppercase">Subcribe</a>
+                                <p>
+                                    <span className="border-b-4 uppercase">
+                                        Subcribe
+                                    </span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -81,7 +88,7 @@ function Footer() {
             </div>
             <div>
                 <p className="text-[16px] text-[#000000] font-[400] py-5 text-left border-t-4">
-                    2023 furino. All rights reverved
+                    2024 furino. All rights reverved
                 </p>
             </div>
         </footer>
