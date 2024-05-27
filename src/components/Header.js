@@ -253,7 +253,7 @@ function Header() {
   };
 
   return (
-    <header className="h-[100px] flex flex-row items-center px-10">
+    <header className="bg-stone-300	 h-[100px] flex flex-row items-center px-10">
       <div className="header-logo basis-1/4 px-10 flex">
         <Link to={ROUTES.HOME_PAGE}>
           <img className="m-auto" src={Logo} />
@@ -277,7 +277,30 @@ function Header() {
         </ul>
       </div>
       <div className="header-icon basis-1/4 px-10  text-center">
-        <ul className="icon-item grid grid-cols-3">
+        <ul className="icon-item grid grid-cols-3 items-center gap-[8px]">
+          <li className="flex justify-center gap-1">
+            <Input
+              placeholder="Search product..."
+              value={searchKey}
+              onChange={handleChangeInputSearch}
+            />
+            <SearchOutlined />
+          </li>
+          <li className="flex justify-center cursor-pointer">
+            <ShoppingCartOutlined
+              onClick={() => {
+                showDrawer();
+              }}
+            />
+            <p className="bg-[red] w-[25px] h-[25px] translate-y-[-8px]	 rounded-[50%]">
+              {carts.length}
+            </p>
+            <>
+              <Drawer title="Shopping Cart" onClose={onClose} open={open}>
+                <Cart closeDrawer={onClose} />
+              </Drawer>
+            </>
+          </li>
           <li>
             {/* <Dropdown menu={{ items }}>
                             <a onClick={(e) => e.preventDefault()}>
@@ -317,31 +340,6 @@ function Header() {
             {/* </Space>
                             </a>
                         </Dropdown> */}
-          </li>
-          <li className="flex justify-center gap-1">
-            <Input
-              placeholder="Search product..."
-              value={searchKey}
-              onChange={handleChangeInputSearch}
-            />
-            <SearchOutlined />
-          </li>
-          <li className="flex justify-center cursor-pointer">
-            <ShoppingCartOutlined />
-            <p className="bg-[red] rounded-full">{carts.length}</p>
-            <>
-              <Button
-                type="primary"
-                onClick={() => {
-                  showDrawer();
-                }}
-              >
-                Open
-              </Button>
-              <Drawer title="Shopping Cart" onClose={onClose} open={open}>
-                <Cart closeDrawer={onClose} />
-              </Drawer>
-            </>
           </li>
         </ul>
       </div>
