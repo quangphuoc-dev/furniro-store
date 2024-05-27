@@ -1,32 +1,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { productApis } from "../../apis/productApis";
 
-// Trạng thái ban đầu của slice sản phẩm
+// Trạng thái ban đầu của slice products
 const initialState = {
-    isLoading: false, // Trạng thái tải dữ liệu
-    products: [], // Mảng chứa danh sách sản phẩm
-    productInfo: {}, // Thông tin chi tiết của một sản phẩm
-    imgsProducts: [], // Mảng chứa danh sách hình ảnh sản phẩm
-    errors: {}, // Lỗi trong quá trình lấy dữ liệu
+    isLoading: false, // Trạng thái đang tải
+    products: [], // Danh sách các sản phẩm
+    productInfo: {}, // Thông tin của sản phẩm cụ thể
+    imgsProducts: [], // Danh sách hình ảnh của sản phẩm
+    errors: {}, // Lỗi (nếu có)
     pagination: {
-        // Thông tin phân trang
-        currentPage: 1,
-        limitPerPage: 8,
-        total: 8,
+        currentPage: 1, // Trang hiện tại
+        limitPerPage: 8, // Số lượng sản phẩm mỗi trang
+        total: 8, // Tổng số sản phẩm
     },
-    searchKey: "", // Từ khóa tìm kiếm
+    searchKey: "", // Khóa tìm kiếm
     params: {
-        // Các tham số lọc và sắp xếp sản phẩm
         _sort: null,
         _order: null,
         material: null,
         price_lte: null,
         price_gte: null,
-    },
+    }, // Các tham số tìm kiếm và bộ lọc
     filter: "", // Bộ lọc hiện tại
 };
 
-// Hành động bất đồng bộ để lấy tất cả sản phẩm
+// Hành động để lấy tất cả các sản phẩm từ server
 export const actFetchAllProducts = createAsyncThunk(
     "products/fetchAllProducts",
     async (params = {}) => {
@@ -40,7 +38,7 @@ export const actFetchAllProducts = createAsyncThunk(
     }
 );
 
-// Hành động bất đồng bộ để lấy sản phẩm theo ID
+// Hành động để lấy thông tin của một sản phẩm dựa trên ID
 export const actFetchProductById = createAsyncThunk(
     "products/fetchProductById",
     async (productId) => {
@@ -49,7 +47,7 @@ export const actFetchProductById = createAsyncThunk(
     }
 );
 
-// Hành động bất đồng bộ để lấy tất cả hình ảnh sản phẩm
+// Hành động để lấy tất cả các hình ảnh của sản phẩm
 export const actFetchAllImgsProducts = createAsyncThunk(
     "products/fetchAllImgsProducts",
     async () => {
@@ -58,7 +56,7 @@ export const actFetchAllImgsProducts = createAsyncThunk(
     }
 );
 
-// Hành động bất đồng bộ để cập nhật sản phẩm theo ID
+// Hành động để cập nhật thông tin của một sản phẩm dựa trên ID
 export const actUpdateProductById = createAsyncThunk(
     "products/updateProductById",
     async ({ id, productUpdate }, thunkAPI) => {
@@ -67,28 +65,30 @@ export const actUpdateProductById = createAsyncThunk(
     }
 );
 
-// Tạo một slice cho sản phẩm
+// Slice của products
 const productSlice = createSlice({
     name: "products",
-    initialState: initialState, // Trạng thái ban đầu
+    initialState: initialState,
     reducers: {
-        // Các reducers để xử lý các hành động đồng bộ
+        // Đặt trạng thái isLoading
         actSetLoading: (state, action) => {
-            state.isLoading = action.payload; // Đặt trạng thái tải dữ liệu
+            state.isLoading = action.payload;
         },
+        // Đặt trang hiện tại cho phân trang
         setNewPage: (state, action) => {
             state.pagination = {
                 ...state.pagination,
-                currentPage: action.payload, // Đặt trang hiện tại mới
+                currentPage: action.payload,
             };
         },
+        // Đặt khóa tìm kiếm
         setSearchKey: (state, action) => {
-            state.searchKey = action.payload; // Đặt từ khóa tìm kiếm mới
+            state.searchKey = action.payload;
         },
+        // Xử lý bộ lọc
         filterReducer: (state, action) => {
-            state.filter = action.payload; // Đặt bộ lọc mới
+            state.filter = action.payload;
 
-            // Thiết lập các tham số lọc và sắp xếp dựa trên bộ lọc
             switch (action.payload) {
                 case "Name: A-Z":
                     state.params._sort = "name";
@@ -135,13 +135,12 @@ const productSlice = createSlice({
                     state.params._order = "asc";
                     break;
             }
-            console.log({ ...state.params }, "state.params in filter reducer");
+
             if (action.payload === "material") {
                 state.params.material_like = action.payload.value;
             }
         },
-
-        // Đặt lại các tham số lọc
+        // Xóa bộ lọc
         deleteFilterReducer: (state, action) => {
             state.params = {
                 _sort: null,
@@ -151,36 +150,39 @@ const productSlice = createSlice({
             };
         },
     },
-    // Các extraReducers để xử lý các hành động bất đồng bộ
     extraReducers: (builder) => {
+        // Xử lý khi hành động lấy tất cả các sản phẩm thành công
         builder.addCase(actFetchAllProducts.pending, (state, action) => {
-            state.isLoading = true; // Đặt trạng thái tải dữ liệu khi bắt đầu lấy sản phẩm
+            state.isLoading = true; // Đánh dấu là đang tải
         });
         builder.addCase(actFetchAllProducts.rejected, (state, action) => {
-            state.errors = {}; // Đặt lỗi nếu có lỗi xảy ra
-            state.isLoading = false; // Tắt trạng thái tải dữ liệu
+            state.errors = {}; // Xóa lỗi
+            state.isLoading = false; // Đánh dấu là không còn đang tải
         });
         builder.addCase(actFetchAllProducts.fulfilled, (state, action) => {
-            state.products = action.payload.data; // Đặt dữ liệu sản phẩm
-            state.pagination.total = action.payload.total; // Đặt tổng số sản phẩm
-            state.isLoading = false; // Tắt trạng thái tải dữ liệu
+            state.products = action.payload.data; // Cập nhật danh sách sản phẩm từ payload của action
+            state.pagination.total = action.payload.total; // Cập nhật tổng số sản phẩm
+            state.isLoading = false; // Đánh dấu là không còn đang tải
         });
 
+        // Xử lý khi hành động lấy thông tin của một sản phẩm dựa trên ID thành công
         builder.addCase(actFetchProductById.fulfilled, (state, action) => {
-            state.productInfo = action.payload; // Đặt thông tin sản phẩm theo ID
+            state.productInfo = action.payload; // Cập nhật thông tin sản phẩm
         });
 
+        // Xử lý khi hành động lấy tất cả các hình ảnh của sản phẩm thành công
         builder.addCase(actFetchAllImgsProducts.fulfilled, (state, action) => {
-            state.imgsProducts = action.payload; // Đặt danh sách hình ảnh sản phẩm
+            state.imgsProducts = action.payload; // Cập nhật danh sách hình ảnh sản phẩm
         });
 
+        // Xử lý khi hành động cập nhật thông tin của một sản phẩm dựa trên ID thành công
         builder.addCase(actUpdateProductById.fulfilled, (state, action) => {
-            state.productInfo = action.payload; // Đặt thông tin sản phẩm đã cập nhật
+            state.productInfo = action.payload; // Cập nhật thông tin sản phẩm
         });
     },
 });
 
-// Xuất các hành động đồng bộ và reducer
+// Export các hành động và reducer của slice products
 export const {
     actSetLoading,
     setNewPage,

@@ -27,7 +27,7 @@
                 </span>
             </div>
         </div>
-        <div className="my-[16px]">
+        {/* <div className="my-[16px]">
             <div className="flex gap-[40px] mx-[32px] items-center">
                 <img
                     src={Cart2}
@@ -58,7 +58,7 @@
             <span className="basis-1/2 text-[16px] text-[#b88e2f] font-[600]">
                 Rs. 520,000.00
             </span>
-        </div>
+        </div> */}
         <div className="flex gap-[10px] pt-[24px] border-t-2 justify-center">
             <button className="h-[30px] w-[87px] rounded-[50px] border-solid border-[1px] border-[#000000] text-[12px] text-[#000000] font-[400] ">
                 Cart

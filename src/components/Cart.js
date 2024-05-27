@@ -1,5 +1,5 @@
 import { Input, InputNumber, Button } from "antd";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { CloseOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
@@ -8,6 +8,7 @@ import {
     actDeleteProductInCarts,
     actUpdateQuantityOfProduct,
 } from "../redux/features/cartSlice";
+import { ROUTES } from "../constants/routes";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const Cart = () => {
     };
 
     const handlePayment = () => {
-        navigate('/payment');
+        navigate(ROUTES.PAYMENT_PAGE);
     };
 
     // Hàm render danh sách sản phẩm trong giỏ hàng
@@ -62,7 +63,7 @@ const Cart = () => {
                         <img src={cart.imgURL} alt="" />
                     </td>
                     <td className="cart-page-shop-table__name-product">
-                        <p className="name">{`${cart.name} - ${cart.size}`}</p>
+                        <p className="name">{`${cart.name} - ${cart.material}`}</p>
                         <p className="color">{`Color: ${cart.color}`}</p>
                     </td>
                     <td className="cart-page-shop-table__price-product">{`${formatNumber(
@@ -132,8 +133,9 @@ const Cart = () => {
                                 <button 
                                 className="cart-page-shop-table__btn-update-cart"
                                 onClick={handlePayment}>
+                                
+                                
                                     <span>Update Cart</span>
-                                    
                                 </button>
                             </div>
                         </div>

@@ -357,10 +357,10 @@ function Header() {
                         />
                         <SearchOutlined />
                     </li>
-                    <li className="flex justify-center cursor-pointer" onClick={handleRedirectToCartPage}>
+                    <li className="flex justify-center cursor-pointer">
                         <ShoppingCartOutlined />
                         <p className="bg-[red] rounded-full">{carts.length}</p>
-                        {/* <>
+                        <>
                             <Button
                                 type="primary"
                                 onClick={() => {
@@ -376,7 +376,7 @@ function Header() {
                             >
                                 <Cart closeDrawer={onClose} />
                             </Drawer>
-                        </> */}
+                        </>
                     </li>
                 </ul>
             </div>

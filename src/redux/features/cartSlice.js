@@ -1,59 +1,73 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
 
-// Khai báo key để lưu trữ dữ liệu giỏ hàng trong local storage
+// Khóa dùng để lưu trữ giỏ hàng trong localStorage
 const KEY_CARTS_LIST = "key_carts_list";
 
-// Khởi tạo trạng thái ban đầu của giỏ hàng
+// Khởi tạo trạng thái ban đầu cho slice giỏ hàng
 const initialState = {
-  carts: JSON.parse(localStorage.getItem(KEY_CARTS_LIST)) || [],
+  carts: JSON.parse(localStorage.getItem(KEY_CARTS_LIST)) || [], // Lấy giỏ hàng từ localStorage hoặc đặt giá trị mặc định là mảng rỗng
 };
 
-// Tạo một slice để quản lý trạng thái của giỏ hàng
+// Tạo slice cho giỏ hàng
 const cartSlice = createSlice({
-  name: "carts",
-  initialState: initialState,
+  name: "carts", // Tên của slice
+  initialState: initialState, // Trạng thái ban đầu của slice
   reducers: {
     // Hành động để thêm sản phẩm vào giỏ hàng
     actAddProductToCarts: (state, action) => {
-      const product = action.payload;
+      const product = action.payload; // Lấy sản phẩm từ payload của action
+      console.log(product, "add cart ne");
+      // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
       const existedItemIndex = state.carts.findIndex(
         (cart) => cart.id === product.id
       );
+      // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng sản phẩm
       if (existedItemIndex > -1) {
         state.carts[existedItemIndex].quantity += product.quantity;
       } else {
+        // Nếu sản phẩm chưa tồn tại, thêm sản phẩm vào giỏ hàng
         state.carts.push({ ...product });
       }
+      // Cập nhật giỏ hàng trong localStorage
       localStorage.setItem(KEY_CARTS_LIST, JSON.stringify(state.carts));
-      message.success("Thêm sản phẩm vào giỏ hàng thành công!");
+      // Hiển thị thông báo thành công
+      message.success("Add product to carts success!");
     },
 
     // Hành động để xóa sản phẩm khỏi giỏ hàng
     actDeleteProductInCarts: (state, action) => {
+      // Lọc giỏ hàng để xóa sản phẩm có id khớp với payload
       state.carts = state.carts.filter((cart) => cart.id !== action.payload);
+      // Cập nhật giỏ hàng trong localStorage
       localStorage.setItem(KEY_CARTS_LIST, JSON.stringify(state.carts));
-      message.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
+      // Hiển thị thông báo thành công
+      message.success("Delete product in carts success!");
     },
 
-    // Hành động để xóa tất cả sản phẩm khỏi giỏ hàng
+    // Hành động để xóa toàn bộ giỏ hàng
     actClearCarts: (state, action) => {
-      state.carts = [];
+      state.carts = []; // Đặt giỏ hàng về mảng rỗng
+      // Cập nhật giỏ hàng trong localStorage
       localStorage.setItem(KEY_CARTS_LIST, JSON.stringify(state.carts));
-      message.success("Xóa tất cả sản phẩm khỏi giỏ hàng thành công!");
+      // Hiển thị thông báo thành công
+      message.success("Clear carts success!");
     },
 
-    // Hành động để cập nhật số lượng của một sản phẩm trong giỏ hàng
+    // Hành động để cập nhật số lượng sản phẩm trong giỏ hàng
     actUpdateQuantityOfProduct: (state, action) => {
-      const { id, quantity } = action.payload;
+      const { id, quantity } = action.payload; // Lấy id và số lượng sản phẩm từ payload của action
+      // Tìm chỉ mục của sản phẩm trong giỏ hàng
       const existedItemIndex = state.carts.findIndex((item) => item.id === id);
+      // Cập nhật số lượng sản phẩm
       state.carts[existedItemIndex].quantity = quantity;
+      // Cập nhật giỏ hàng trong localStorage
       localStorage.setItem(KEY_CARTS_LIST, JSON.stringify(state.carts));
     },
   },
 });
 
-// Export các action creator và reducer
+// Xuất các actions và reducer từ slice giỏ hàng
 export const {
   actAddProductToCarts,
   actDeleteProductInCarts,

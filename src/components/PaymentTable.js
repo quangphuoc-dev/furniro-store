@@ -60,7 +60,7 @@ const PaymentTable = () => {
         <tr key={cart.id}>
           {/* Hình ảnh sản phẩm */}
           <td className="cart-page-shop-table__img-product">
-            <img src={cart.imgURL} alt="" />
+            <img className="w-[80px] h-[80px]" src={cart.imgURL} alt="" />
           </td>
           {/* Tên và màu sắc sản phẩm */}
           <td className="cart-page-shop-table__name-product">

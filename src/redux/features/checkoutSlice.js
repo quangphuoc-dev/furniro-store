@@ -1,65 +1,51 @@
-// Nhập các hàm createAsyncThunk và createSlice từ thư viện @reduxjs/toolkit.
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// Nhập các phương thức từ checkoutApis để sử dụng trong các hành động async.
-import { checkoutApis } from "../../apis/checkoutApis";
-// Nhập message từ thư viện antd để hiển thị thông báo.
-import { message } from "antd";
+import { checkoutApis } from "../../apis/checkoutApis"; // Import API calls related to checkout
+import { message } from "antd"; // Import message component from Ant Design
 
-// Khởi tạo trạng thái ban đầu cho slice checkout.
+// Khởi tạo trạng thái ban đầu cho slice checkout
 const initialState = {
-    checkoutBills: [], // Mảng để lưu trữ tất cả các hóa đơn thanh toán.
-    checkoutBill: {}, // Đối tượng để lưu trữ một hóa đơn thanh toán cụ thể.
+  checkoutBills: [], // Danh sách các hóa đơn thanh toán
+  checkoutBill: {}, // Thông tin của hóa đơn thanh toán cụ thể
 };
 
-// Tạo một hành động async để lấy tất cả các hóa đơn thanh toán.
+// Hành động để lấy tất cả các hóa đơn thanh toán từ server
 export const actFetchAllCheckoutBills = createAsyncThunk(
-    "checkout/fetchAllCheckoutBills", // Tên của hành động này.
-    async (params) => {
-        // Gọi phương thức getAllCheckoutBills từ checkoutApis với các tham số truy vấn.
-        const response = await checkoutApis.getAllCheckoutBills({
-            params: params,
-        });
-        // Trả về phản hồi nhận được.
-        return response;
-    }
+  "checkout/fetchAllCheckoutBills", // Tên của action
+  async (params) => {
+    const response = await checkoutApis.getAllCheckoutBills({ params: params }); // Gọi API để lấy danh sách hóa đơn thanh toán
+    return response; // Trả về dữ liệu hóa đơn thanh toán
+  }
 );
 
-// Tạo một hành động async để thêm một hóa đơn thanh toán mới.
+// Hành động để thêm một hóa đơn mới
 export const actAddBill = createAsyncThunk(
-    "checkout/addBill", // Tên của hành động này.
-    async (bill) => {
-        // Gọi phương thức addBill từ checkoutApis với dữ liệu hóa đơn.
-        const response = await checkoutApis.addBill(bill);
-        // Trả về phản hồi nhận được.
-        return response;
-    }
+  "checkout/addBill", // Tên của action
+  async (bill) => {
+    const response = await checkoutApis.addBill(bill); // Gọi API để thêm hóa đơn mới
+    return response; // Trả về dữ liệu hóa đơn mới
+  }
 );
 
-// Tạo một slice cho tính năng checkout.
+// Tạo slice cho phần checkout
 const checkoutSlice = createSlice({
-    name: "checkout", // Tên của slice.
-    initialState: initialState, // Trạng thái ban đầu của slice.
-    reducers: {}, // Không có reducer nào được định nghĩa ở đây.
-    extraReducers: (builder) => {
-        // Xử lý khi hành động actFetchAllCheckoutBills được hoàn thành.
-        builder.addCase(actFetchAllCheckoutBills.fulfilled, (state, action) => {
-            // Cập nhật trạng thái checkoutBills với dữ liệu nhận được.
-            state.checkoutBills = action.payload;
-        });
+  name: "checkout", // Tên của slice
+  initialState: initialState, // Trạng thái ban đầu của slice
+  reducers: {}, // Không có reducers cho slice này
+  extraReducers: (builder) => {
+    // Xử lý khi hành động lấy tất cả các hóa đơn thanh toán thành công
+    builder.addCase(actFetchAllCheckoutBills.fulfilled, (state, action) => {
+      state.checkoutBills = action.payload; // Cập nhật danh sách hóa đơn thanh toán từ payload của action
+    });
 
-        // Xử lý khi hành động actAddBill được hoàn thành.
-        builder.addCase(actAddBill.fulfilled, (state, action) => {
-            const billData = action.payload;
-            // console.log(billData, "billData"); // Dòng này có thể dùng để debug.
-            // Cập nhật trạng thái checkoutBill với dữ liệu hóa đơn mới.
-            state.checkoutBill = billData;
-            // Thêm hóa đơn mới vào mảng checkoutBills.
-            state.checkoutBills.push(billData);
-            // Hiển thị thông báo thành công.
-            message.success("Check your order in purchase history!");
-        });
-    },
+    // Xử lý khi hành động thêm một hóa đơn mới thành công
+    builder.addCase(actAddBill.fulfilled, (state, action) => {
+      const billData = action.payload; // Lấy dữ liệu hóa đơn từ payload của action
+      state.checkoutBill = billData; // Cập nhật thông tin hóa đơn mới
+      state.checkoutBills.push(billData); // Thêm hóa đơn mới vào danh sách hóa đơn thanh toán
+      message.success("Check your order in purchase history!"); // Hiển thị thông báo thành công
+    });
+  },
 });
 
-// Xuất reducer của slice checkout để sử dụng trong store.
+// Export reducer của slice checkout
 export const checkoutReducer = checkoutSlice.reducer;
