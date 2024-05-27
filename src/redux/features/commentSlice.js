@@ -119,7 +119,7 @@ const commentSlice = createSlice({
       state.isLoading = false; // Tắt trạng thái tải dữ liệu
       state.comment = action.payload; // Cập nhật nhận xét mới
       state.comments.push(action.payload); // Thêm nhận xét mới vào danh sách nhận xét
-      state.commentsCalcuStarAverage.push(action.payload); // Thêm nhận xét mới vào danh sách tính trung bình sao
+      state.commentsCalcuStarAverage = action.payload; // Thêm nhận xét mới vào danh sách tính trung bình sao
       message.success("add review product success!"); // Hiển thị thông báo thành công
     });
 
