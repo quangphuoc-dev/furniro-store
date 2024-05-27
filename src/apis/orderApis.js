@@ -9,7 +9,6 @@ export const orderApis = {
     const response = await axios.get(`${process.env.REACT_APP_BE_URL}orders`, {
       params: params,
     });
-    console.log("changeLog");
     // Trả về toàn bộ đối tượng phản hồi.
     return response;
   },
