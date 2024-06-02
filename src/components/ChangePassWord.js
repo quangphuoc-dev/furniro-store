@@ -63,12 +63,12 @@ const ChangePassWord = () => {
   return (
     <div className="change-pass-word-wrapper">
       <div className="change-pass-word-container">
-        <div className="change-pass-word-container__title">
+        <div className="change-pass-word-container__title flex justify-center">
           <h3>Change your password</h3>
         </div>
         {/* Form nhập liệu để thay đổi mật khẩu */}
         <Form
-          className="change-pass-word-form"
+          className="change-pass-word-form flex flex-col items-center"
           onSubmitCapture={handleSubmit(onValid)}
         >
           {/* Input để nhập mật khẩu hiện tại */}

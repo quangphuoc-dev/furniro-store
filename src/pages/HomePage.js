@@ -9,7 +9,6 @@ function HomePage() {
             <Category />
             <ProductHome />
         </>
-    
     );
 }
 

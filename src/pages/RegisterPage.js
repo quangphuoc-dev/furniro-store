@@ -140,13 +140,22 @@ const RegisterPage = () => {
                         </div>
                         <div className="block w-[528px] my-5">
                             <Controller
-                                
                                 control={control}
                                 name="gender"
                                 render={({ field }) => (
                                     <Radio.Group className="flex" {...field}>
-                                        <Radio className="block text-[16px]" value="male">Male</Radio>
-                                        <Radio className="block text-[16px]" value="female">Female</Radio>
+                                        <Radio
+                                            className="block text-[16px]"
+                                            value="male"
+                                        >
+                                            Male
+                                        </Radio>
+                                        <Radio
+                                            className="block text-[16px]"
+                                            value="female"
+                                        >
+                                            Female
+                                        </Radio>
                                     </Radio.Group>
                                 )}
                             />
