@@ -101,10 +101,16 @@ const ProductItem = () => {
       actFetchAllComments({
         _page: 1,
         _limit: pagination.limitPerPage,
+        idProduct: params.productId,
         ...params,
       })
     );
-    dispatch(actFetchAllCommentsCalcuStarAverage(params));
+    // dispatch(
+    //   actFetchCommentById({
+    //     id: params.productId,
+    //   })
+    // );
+    // dispatch(actFetchAllCommentsCalcuStarAverage(params));
     // eslint-disable-next-line
   }, []);
 
@@ -170,23 +176,23 @@ const ProductItem = () => {
 
   // để gọi ra comments đúng với sp đc comments
   // chú ý truyền vô params cái id là id của sp => fil ra
-  useEffect(() => {
-    dispatch(
-      actFetchAllComments({
-        ...params,
-        _page: 1,
-        _limit: pagination.limitPerPage,
-        idProduct: params.productId,
-      })
-    );
-    dispatch(
-      actFetchAllCommentsCalcuStarAverage({
-        ...params,
-        idProduct: params.productId,
-      })
-    );
-    // eslint-disable-next-line
-  }, [params.productId]);
+  //   useEffect(() => {
+  // dispatch(
+  //   actFetchCommentById({
+  //     // ...params,
+  //     // _page: 1,
+  //     // _limit: pagination.limitPerPage,
+  //     idProduct: params.productId,
+  //   })
+  // );
+  // dispatch(
+  //   actFetchAllCommentsCalcuStarAverage({
+  //     ...params,
+  //     idProduct: params.productId,
+  //   })
+  // );
+  // eslint-disable-next-line
+  //   }, [params.productId]);
 
   let sumStar = 0;
   let result = 0;
@@ -245,14 +251,14 @@ const ProductItem = () => {
 
   const handleChangePage = (newPage) => {
     dispatch(setNewPage(newPage));
-    dispatch(
-      actFetchAllComments({
-        _page: newPage,
-        _limit: pagination.limitPerPage,
-        idProduct: params.productId,
-        ...params,
-      })
-    );
+    // dispatch(
+    //   actFetchAllComments({
+    //     _page: newPage,
+    //     _limit: pagination.limitPerPage,
+    //     idProduct: params.productId,
+    //     ...params,
+    //   })
+    // );
   };
 
   // };
@@ -266,7 +272,11 @@ const ProductItem = () => {
           className="detail-product-card-comment__review--item"
         >
           <div className="detail-product-card-comment__review--avatar-user">
-            <img src={comment?.avatarURL} alt="" />
+            <img
+              className="w-[30px] h-[30px]"
+              src={comment?.avatarURL}
+              alt=""
+            />
           </div>
           <div className="detail-product-card-comment__review--grp-right">
             <div className="detail-product-card-comment__review--user-name">

@@ -15,7 +15,9 @@ export const commentApis = {
           _order: "desc",
         },
       });
-      return response.data;
+      return {
+        data: response.data,
+      };
     } catch (error) {
       console.error("Không thể lấy bình luận:", error);
       throw error; // Ném lỗi để caller xử lý
@@ -58,7 +60,10 @@ export const commentApis = {
   // Chỉnh sửa một bình luận cụ thể theo ID
   editCommentById: async (id, commentUpdate) => {
     try {
-      const response = await axios.patch(`${BASE_URL}comments/${id}`, commentUpdate);
+      const response = await axios.patch(
+        `${BASE_URL}comments/${id}`,
+        commentUpdate
+      );
       return response.data;
     } catch (error) {
       console.error(`Không thể chỉnh sửa bình luận với id ${id}:`, error);
