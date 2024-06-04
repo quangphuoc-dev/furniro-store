@@ -55,7 +55,7 @@ const CheckoutPage = () => {
                     <div className="flex flex-col">
                         <span>{order?.orderNumber}</span>
                         <span>{order?.dateOfBill}</span>
-                        <span>{console.log(order)}</span>
+                        <span>{order?.total}</span>
                         <span>{order?.payment}</span>
                     </div>
                 </div>

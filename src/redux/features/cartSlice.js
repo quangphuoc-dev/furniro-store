@@ -16,23 +16,22 @@ const cartSlice = createSlice({
     reducers: {
         // Hành động để thêm sản phẩm vào giỏ hàng
         actAddProductToCarts: (state, action) => {
-            const product = action.payload; // Lấy sản phẩm từ payload của action
+            const product = action.payload;
             console.log(product, "add cart ne");
-            // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
-            const existedProductIndex = state.carts.findIndex(
-                (item) => item.id === product.id && item.size === product.size
+            // const { id, name, imgURL, price, quantity } = product;
+            const existedItemIndex = state.carts.find(
+                (cart) => cart.id === product.id && cart.size === product.size
             );
 
-            // Nếu sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng
-            if (existedProductIndex !== -1) {
-                state.carts[existedProductIndex].quantity += product.quantity;
+            // nếu trùng id => + quantity
+            if (existedItemIndex) {
+                // Nếu sản phẩm đã tồn tại trong giỏ hàng với cùng một ID và cùng một size, cập nhật số lượng
+                existedItemIndex.quantity += product.quantity;
             } else {
-                // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm mới sản phẩm vào giỏ hàng
+                // Nếu sản phẩm chưa tồn tại trong giỏ hàng hoặc có cùng ID nhưng khác size, thêm sản phẩm mới
                 state.carts.push({ ...product });
             }
-            // Cập nhật giỏ hàng trong localStorage
             localStorage.setItem(KEY_CARTS_LIST, JSON.stringify(state.carts));
-            // Hiển thị thông báo thành công
             message.success("Add product to carts success!");
         },
 
@@ -59,17 +58,11 @@ const cartSlice = createSlice({
 
         // Hành động để cập nhật số lượng sản phẩm trong giỏ hàng
         actUpdateQuantityOfProduct: (state, action) => {
-            const { id, quantity, size } = action.payload; // Lấy id và số lượng sản phẩm từ payload của action
-            // Tìm chỉ mục của sản phẩm trong giỏ hàng
+            const { id, quantity } = action.payload;
             const existedItemIndex = state.carts.findIndex(
-                (item) => item.id === id && item.size === size
+                (item) => item.id === id
             );
-            // Cập nhật số lượng sản phẩm
-            // state.carts[existedItemIndex].quantity = quantity;
-            if (existedItemIndex !== -1) {
-                state.carts[existedItemIndex].quantity = quantity;
-            }
-            // Cập nhật giỏ hàng trong localStorage
+            state.carts[existedItemIndex].quantity = quantity;
             localStorage.setItem(KEY_CARTS_LIST, JSON.stringify(state.carts));
         },
     },

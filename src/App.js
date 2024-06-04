@@ -15,6 +15,8 @@ import { GlobalHistory } from "./utils/globalHistory";
 import { ROUTES } from "./constants/routes";
 import CheckOutPage from "./pages/CheckOutPage";
 import OrderPage from "./pages/OrderPage";
+import BlogPage from "./pages/BlogPage";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
     return (
@@ -85,6 +87,8 @@ function App() {
                         path={ROUTES.USER_ADDRESS_PAGE}
                         element={<UserAddressPage />}
                     />
+                    <Route path={ROUTES.BLOG_PAGE} element={<BlogPage />} />
+                    <Route path={ROUTES.CONTACT_PAGE} element={<ContactPage />} />
                 </Route>
                 <Route path={ROUTES.LOGIN_PAGE} element={<LoginPage />} />
                 <Route path={ROUTES.REGISTER_PAGE} element={<RegisterPage />} />

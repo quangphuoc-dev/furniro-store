@@ -9,6 +9,7 @@ const PurchaseHistory = () => {
     const { checkoutBills } = useSelector((state) => state.checkout);
     const [cartsInCheckoutBills, setCartsInCheckoutBills] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { userInfo } = useSelector((state) => state.user);
 
     // Sao chép mảng checkoutBills để tránh thay đổi trực tiếp trên state
     const checkoutBillsClone = [...checkoutBills];
@@ -44,26 +45,28 @@ const PurchaseHistory = () => {
     // Render danh sách đơn hàng
     const renderPurchaseList = (checkoutBills) => {
         return checkoutBills.map((bill) => {
-            return (
-                <div>
-                    <div className="flex justify-center place-items-center gap-[350px]">
-                        <div className="purchase-history-table__code-purchase ">
-                            <p>{bill.orderNumber}</p>
-                        </div>
-                        <div className="purchase-history-table__date-of-bill ">
-                            <p>{bill.dateOfBill}</p>
-                        </div>
-                        <div className="purchase-history-table__subtotal-product ">
-                            {bill.fullName}
-                        </div>
-                        <div className="purchase-history-table__bill">
-                            <p onClick={() => showModal(bill.id)}>
-                                Xem chi tiết đơn hàng
-                            </p>
+            if (userInfo && userInfo.id === bill.userId) {
+                return (
+                    <div>
+                        <div className="flex justify-center place-items-center gap-[350px]">
+                            <div className="purchase-history-table__code-purchase ">
+                                <p>{bill.orderNumber}</p>
+                            </div>
+                            <div className="purchase-history-table__date-of-bill ">
+                                <p>{bill.dateOfBill}</p>
+                            </div>
+                            <div className="purchase-history-table__subtotal-product ">
+                                {bill.fullName}
+                            </div>
+                            <div className="purchase-history-table__bill">
+                                <p onClick={() => showModal(bill.id)}>
+                                    Xem chi tiết đơn hàng
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            );
+                );
+            }
         });
     };
 

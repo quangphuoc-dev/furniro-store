@@ -10,5 +10,7 @@ export const ROUTES = {
     USER_PURCHASE_HISTORY_PAGE: "/user/purchase-history",
     ORDER_PAGE: "/order",
     CHECK_OUT_PAGE: "/checkout",
-    USER_ADDRESS_PAGE: "/user/address"
+    USER_ADDRESS_PAGE: "/user/address",
+    BLOG_PAGE: "/blog",
+    CONTACT_PAGE: "/contact"
 };

@@ -38,10 +38,12 @@ function Footer() {
                                     </Link>
                                 </li>
                                 <li className="text-[16px] text-[#000000] font-[500] mb-[45px]">
-                                    About
+                                    <Link to={ROUTES.BLOG_PAGE}>Blog</Link>
                                 </li>
                                 <li className="text-[16px] text-[#000000] font-[500] mb-[45px]">
-                                    Contact
+                                    <Link to={ROUTES.CONTACT_PAGE}>
+                                        Contact
+                                    </Link>
                                 </li>
                             </ul>
                         </div>

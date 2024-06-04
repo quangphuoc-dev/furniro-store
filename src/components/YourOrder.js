@@ -1,9 +1,9 @@
 // Import các thư viện và module cần thiết
-import React from "react"; // Import React để tạo component
+import React,{useEffect} from "react"; // Import React để tạo component
 import { useDispatch } from "react-redux"; // Import useDispatch để dispatch các action của Redux
 import { actDeleteProductInCarts } from "../redux/features/cartSlice"; // Import action để xóa sản phẩm trong giỏ hàng từ Redux slice
 import { Select } from "antd/es"; // Import component Select từ Ant Design
-import { Controller } from "react-hook-form"; // Import Controller từ React Hook Form để quản lý form
+import { Controller, useForm, useFormContext } from "react-hook-form"; // Import Controller từ React Hook Form để quản lý form
 
 // Khai báo component YourOrder nhận props từ parent component
 const YourOrder = (props) => {
@@ -11,7 +11,7 @@ const YourOrder = (props) => {
     const cartsList = JSON.parse(localStorage.getItem("key_carts_list")); // Lấy danh sách sản phẩm trong giỏ hàng từ localStorage
 
     // Giải cấu trúc props nhận từ parent
-    const { isCheckoutPage, control, errors } = props;
+    const { isCheckoutPage, setValue, control, errors } = props;
 
     // Hàm định dạng số thành chuỗi có dấu phân cách
     const formatNumber = (num) => {
@@ -39,8 +39,9 @@ const YourOrder = (props) => {
             return 0;
         }
         const totalMoneyInBill = cartsList.reduce((total, cart) => {
-            return total + parseFloat(cart.price) * parseFloat(cart.quantity);
+            return (total + parseFloat(cart.price) * parseFloat(cart.quantity));
         }, 0);
+
         return formatNumber(totalMoneyInBill);
     };
 
@@ -49,6 +50,12 @@ const YourOrder = (props) => {
         dispatch(actDeleteProductInCarts(id));
     };
 
+    useEffect(() => {
+        // Hàm getTotalMoneyInBill trả về tổng tiền
+        const totalMoney = getTotalMoneyInBill();
+        // Gán giá trị của total bằng kết quả của getTotalMoneyInBill
+        setValue("total", totalMoney ?? 0);
+    }, [setValue]);
     // Hàm render các sản phẩm trong giỏ hàng
     const renderProductInYourOrder = (cartsList) => {
         if (!cartsList || cartsList.length === 0) {
@@ -278,14 +285,24 @@ const YourOrder = (props) => {
                             )}
                         </div>
                         <div>
-                            <tr>
-                                <div>
-                                    <h3>Total</h3>
-                                </div>
-                                <div>
-                                    <h3>{getTotalMoneyInBill()}</h3>
-                                </div>
-                            </tr>
+                            <div>
+                                <Controller
+                                    control={control}
+                                    name="total"
+                                    render={({ field }) => {
+                                        return (
+                                            <div>
+                                                <div>
+                                                    <h3>Total</h3>
+                                                </div>
+                                                <div>
+                                                    <h3>{field.value}</h3>
+                                                </div>
+                                            </div>
+                                        );
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
 

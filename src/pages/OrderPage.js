@@ -6,7 +6,7 @@ import { Col, Row } from "antd"; // Import các component lưới từ Ant Desig
 import * as Yup from "yup"; // Import thư viện Yup để xác thực form
 import { Button } from "antd"; // Import component Button từ Ant Design
 import { yupResolver } from "@hookform/resolvers/yup"; // Import resolver của Yup cho React Hook Form
-import { useForm } from "react-hook-form"; // Import hook useForm từ React Hook Form
+// import { useForm } from "react-hook-form"; // Import hook useForm từ React Hook Form
 import { actAddOrder, clearOrder } from "../redux/features/orderSlice"; // Import các action từ orderSlice
 import dayjs from "dayjs"; // Import thư viện dayjs để làm việc với ngày tháng
 import { makeOrderNumber } from "../utils/makeOrderNumber"; // Import hàm tạo số đơn hàng
@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom"; // Import hook điều hướng 
 import { ROUTES } from "../constants/routes"; // Import các hằng số định tuyến
 import { actAddBill } from "../redux/features/checkoutSlice"; // Import action từ checkoutSlice
 import { actClearCarts } from "../redux/features/cartSlice";
+import { useForm, FormProvider } from 'react-hook-form';
+
 
 // Định nghĩa các biểu thức kiểm tra hợp lệ cho số điện thoại và email
 const phoneValidation = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
@@ -44,7 +46,6 @@ const OrderPage = () => {
     const navigate = useNavigate(); // Sử dụng hook useNavigate để điều hướng
     const { userInfo } = useSelector((state) => state.user); // Lấy thông tin người dùng từ Redux store
     const { carts } = useSelector((state) => state.cart); // Lấy thông tin giỏ hàng từ Redux store
-
     // Khởi tạo form với các giá trị mặc định và schema xác thực
     const methods = useForm({
         defaultValues: {
@@ -59,6 +60,7 @@ const OrderPage = () => {
             orderNotes: "",
             feeShip: "",
             payment: "",
+            // total: "",
         },
         resolver: yupResolver(schema), // Sử dụng Yup để xác thực form
     });
@@ -118,7 +120,14 @@ const OrderPage = () => {
                     lg={10}
                 >
                     {/* Component thông tin đơn hàng */}
-                    <YourOrder control={control} errors={errors} />
+                    <FormProvider {...methods}>
+                        <YourOrder
+                            control={control}
+                            setValue={methods.setValue}
+                            errors={errors}
+                        />
+                    </FormProvider>
+                    {/* <YourOrder control={control} errors={errors} /> */}
                     <div className="billing-detail__submit-btn">
                         {/* Nút đặt hàng */}
                         <Button htmlType="submit">Place order</Button>

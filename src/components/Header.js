@@ -23,6 +23,8 @@ import {
     setSearchKey,
 } from "../redux/features/productSlice";
 import axios from "axios";
+import { globalNavigate } from "../utils/globalHistory"; // Import globalNavigate
+
 
 function Header() {
     // const carts = useSelector() lay du lieu cart tu store
@@ -96,11 +98,7 @@ function Header() {
         },
         {
             key: "2", // Định danh duy nhất cho mục này
-            label: (
-                <Link to={ROUTES.USER_PASSWORD_PAGE}>
-                    Change password
-                </Link>
-            ), // Liên kết đến trang thay đổi mật khẩu
+            label: <Link to={ROUTES.USER_PASSWORD_PAGE}>Change password</Link>, // Liên kết đến trang thay đổi mật khẩu
         },
         {
             type: "divider", // Dùng để thêm đường phân cách trong menu
@@ -222,19 +220,21 @@ function Header() {
         // );
         // dispatch(setNewPage(1)); // Cập nhật trang hiện tại trong state về 1
 
-        if(!searchKey) {
+        if (!searchKey) {
             setSearchProductsResult([]);
             return;
         }
 
-        const {data} = await axios.get(`${process.env.REACT_APP_BE_URL}products`,
-        {
-            params: {
-                q: searchKey, // Sao chép các tham số truyền vào
-            },
-        });
+        const { data } = await axios.get(
+            `${process.env.REACT_APP_BE_URL}products`,
+            {
+                params: {
+                    q: searchKey, // Sao chép các tham số truyền vào
+                },
+            }
+        );
 
-        if(data){
+        if (data) {
             setSearchProductsResult(data);
         }
     };
@@ -292,6 +292,10 @@ function Header() {
         dispatch(setSearchKey(value));
     };
 
+    const handleProductClick = (productId) => {
+        globalNavigate(`/products/${productId}`); // Sử dụng globalNavigate để điều hướng đến trang detailProduct
+    };
+
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
         setOpen(true);
@@ -322,8 +326,12 @@ function Header() {
                             </Space>
                         </Dropdown>
                     </li>
-                    <li>About</li>
-                    <li>Contact</li>
+                    <li>
+                        <Link to={ROUTES.BLOG_PAGE}>Blog</Link>
+                    </li>
+                    <li>
+                        <Link to={ROUTES.CONTACT_PAGE}>Contact</Link>
+                    </li>
                 </ul>
             </div>
             <div className="header-icon basis-1/4 px-10  text-center">
@@ -352,13 +360,32 @@ function Header() {
                                     className="p-2 text-gray-600 cursor-pointer"
                                     onInput={handleSearchProduct}
                                 />
-                                {!!searchProductsResult.length && <div className="absolute w-[200px] bg-white top-[50px]">
+                                {!!searchProductsResult.length && (
+                                    <div className="absolute w-[350px] bg-white top-[50px] left-[-150px]">
                                         <ul>
-                                            {searchProductsResult.map(_product=>{
-                                                return <li key={_product.id}>{_product?.name}</li>
-                                            })}
+                                            {searchProductsResult.map(
+                                                (_product) => {
+                                                    return (
+                                                        <li key={_product.id}>
+                                                            <div 
+                                                            onClick={() => handleProductClick(_product.id)}
+                                                            className="flex gap-2 my-1">
+                                                                <div>
+                                                                    <img className="w-[50px] h-[50px]" src={_product?.imgURL} alt=""/>
+                                                                </div>
+                                                                <div>
+                                                                    {
+                                                                        _product?.name
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    );
+                                                }
+                                            )}
                                         </ul>
-                                    </div>}
+                                    </div>
+                                )}
                             </div>
                         </form>
                     </li>
@@ -409,6 +436,7 @@ function Header() {
                                         {userInfo?.avatarURL ? (
                                             <div className="header-left__avatar-user">
                                                 <img
+                                                    className="rounded-[50%] w-[30px]"
                                                     src={userInfo?.avatarURL}
                                                     alt=""
                                                 />

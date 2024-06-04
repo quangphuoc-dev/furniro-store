@@ -3,6 +3,7 @@ import { Input, InputNumber } from "antd"; // Thư viện Ant Design để tạo
 import { CloseCircleOutlined, CloseOutlined } from "@ant-design/icons"; // Icon đóng từ thư viện Ant Design
 import { useDispatch, useSelector } from "react-redux"; // Hook để sử dụng Redux trong React
 import React from "react"; // Thư viện React
+import { formatNumber } from "../utils/formatNumber";
 import {
     actClearCarts,
     actDeleteProductInCarts,
@@ -16,24 +17,7 @@ const PaymentTable = () => {
     const { carts } = useSelector((state) => state.cart);
 
     // Hàm định dạng số theo dạng có dấu chấm ngăn cách hàng nghìn
-    const formatNumber = (num) => {
-        let numString = "";
-        while (num > 0) {
-            let div = num % 1000;
-            num = Math.floor(num / 1000);
-            if (num !== 0) {
-                if (div < 10) {
-                    div = "00" + div;
-                } else if (div < 100) {
-                    div = "0" + div;
-                }
-                numString = "." + div + numString;
-            } else {
-                numString = div + numString;
-            }
-        }
-        return numString;
-    };
+    
 
     // Hàm xử lý khi thay đổi số lượng sản phẩm
     const onChangeQuantity = (id, quantity) => {
