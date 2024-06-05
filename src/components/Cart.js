@@ -11,7 +11,7 @@ import {
 import { ROUTES } from "../constants/routes";
 import { formatNumber } from "../utils/formatNumber";
 
-const Cart = () => {
+const Cart = ({ closeDrawer }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { carts } = useSelector((state) => state.cart);
@@ -33,6 +33,7 @@ const Cart = () => {
   };
 
   const handlePayment = () => {
+    closeDrawer();
     navigate(ROUTES.PAYMENT_PAGE);
   };
 
