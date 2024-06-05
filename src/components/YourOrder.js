@@ -1,5 +1,5 @@
 // Import các thư viện và module cần thiết
-import React,{useEffect} from "react"; // Import React để tạo component
+import React, { useEffect } from "react"; // Import React để tạo component
 import { useDispatch } from "react-redux"; // Import useDispatch để dispatch các action của Redux
 import { actDeleteProductInCarts } from "../redux/features/cartSlice"; // Import action để xóa sản phẩm trong giỏ hàng từ Redux slice
 import { Select } from "antd/es"; // Import component Select từ Ant Design
@@ -39,7 +39,7 @@ const YourOrder = (props) => {
             return 0;
         }
         const totalMoneyInBill = cartsList.reduce((total, cart) => {
-            return (total + parseFloat(cart.price) * parseFloat(cart.quantity));
+            return total + parseFloat(cart.price) * parseFloat(cart.quantity);
         }, 0);
 
         return formatNumber(totalMoneyInBill);

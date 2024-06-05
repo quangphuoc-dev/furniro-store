@@ -149,8 +149,6 @@ const ProductHome = () => {
         });
     };
 
-    
-
     return (
         <div className="list-product my-[100px]">
             <div className="product-title">

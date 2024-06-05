@@ -6,7 +6,7 @@ import { useEffect } from "react";
 function Layout() {
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, []);
+    }, []);
 
     return (
         <div>

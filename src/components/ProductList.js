@@ -94,7 +94,7 @@ const ProductList = () => {
                     key={product.id}
                 >
                     <div className="relative">
-                        <img src={product.imgURL} alt=""/>
+                        <img src={product.imgURL} alt="" />
                         {!product.status?.type ? null : product.status?.type ===
                           "NEW" ? (
                             <div className="text-[16px] flex items-center justify-center leading-[1.5] text-[#ffffff] font-[500] rounded-[1000px] bg-[#71e9a3] w-[48px] h-[48px] absolute top-[24px] right-[24px]">

@@ -17,7 +17,6 @@ const PaymentTable = () => {
     const { carts } = useSelector((state) => state.cart);
 
     // Hàm định dạng số theo dạng có dấu chấm ngăn cách hàng nghìn
-    
 
     // Hàm xử lý khi thay đổi số lượng sản phẩm
     const onChangeQuantity = (id, quantity) => {
@@ -83,7 +82,10 @@ const PaymentTable = () => {
             <div>
                 <div className="flex justify-center gap-4">
                     {/* Nút xóa toàn bộ giỏ hàng */}
-                    <button className="bg-[#b88e2f] p-2 rounded-[20px] text-white hover:bg-[#ffffff] hover:text-[#b88e2f] hover:border-[#b88e2f] hover:border-[1px]" onClick={() => handleClearCarts()}>
+                    <button
+                        className="bg-[#b88e2f] p-2 rounded-[20px] text-white hover:bg-[#ffffff] hover:text-[#b88e2f] hover:border-[#b88e2f] hover:border-[1px]"
+                        onClick={() => handleClearCarts()}
+                    >
                         Clear
                     </button>
                     <button className="bg-[#b88e2f] p-2 rounded-[20px] text-white hover:bg-[#ffffff] hover:text-[#b88e2f] hover:border-[#b88e2f] hover:border-[1px]">

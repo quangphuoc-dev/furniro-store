@@ -12,5 +12,5 @@ export const ROUTES = {
     CHECK_OUT_PAGE: "/checkout",
     USER_ADDRESS_PAGE: "/user/address",
     BLOG_PAGE: "/blog",
-    CONTACT_PAGE: "/contact"
+    CONTACT_PAGE: "/contact",
 };

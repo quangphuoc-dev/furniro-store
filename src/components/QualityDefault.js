@@ -25,8 +25,12 @@ function QualityDefault() {
                         <IoMdCheckmarkCircleOutline />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-[25px] text-[#242424] font-[600]">Warranty Protection</span>
-                        <span className="text-[20px] text-[#898989] font-[500]">Over 2 years</span>
+                        <span className="text-[25px] text-[#242424] font-[600]">
+                            Warranty Protection
+                        </span>
+                        <span className="text-[20px] text-[#898989] font-[500]">
+                            Over 2 years
+                        </span>
                     </div>
                 </div>
                 <div className="quality-item flex justify-center gap-2">
@@ -34,8 +38,12 @@ function QualityDefault() {
                         <FaShippingFast />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-[25px] text-[#242424] font-[600]">Free Shipping</span>
-                        <span className="text-[20px] text-[#898989] font-[500]">Order over 150 $</span>
+                        <span className="text-[25px] text-[#242424] font-[600]">
+                            Free Shipping
+                        </span>
+                        <span className="text-[20px] text-[#898989] font-[500]">
+                            Order over 150 $
+                        </span>
                     </div>
                 </div>
                 <div className="quality-item flex justify-center gap-2">
@@ -43,8 +51,12 @@ function QualityDefault() {
                         <BiSupport />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-[25px] text-[#242424] font-[600]">24 / 7 Support</span>
-                        <span className="text-[20px] text-[#898989] font-[500]">Dedicated support</span>
+                        <span className="text-[25px] text-[#242424] font-[600]">
+                            24 / 7 Support
+                        </span>
+                        <span className="text-[20px] text-[#898989] font-[500]">
+                            Dedicated support
+                        </span>
                     </div>
                 </div>
             </div>

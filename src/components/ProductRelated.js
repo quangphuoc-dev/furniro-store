@@ -104,7 +104,7 @@ function ProductRelated() {
                 </div>
                 <div className="product-btn text-[16px] font-[600] border-solid border-[1px] border-[#b88e2f] w-[245px] h-[48px] flex m-auto justify-center items-center mt-[32px]">
                     <Link to="/products">Show More</Link>
-                    </div>
+                </div>
             </div>
         </div>
     );

@@ -1,5 +1,4 @@
 import BannerShop from "../assets/images/banner-shop.png";
-import ToolbarProduct from "../components/ToolbarProduct";
 import ProductList from "../components/ProductList";
 import QualityDefault from "../components/QualityDefault";
 import { RightOutlined } from "@ant-design/icons";
@@ -29,7 +28,6 @@ function ProductPage() {
                     </p>
                 </div>
             </div>
-            {/* <ToolbarProduct /> */}
             <ProductList />
             <QualityDefault />
         </div>

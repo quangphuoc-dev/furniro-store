@@ -13,8 +13,12 @@ function Category() {
             .then((raw) => raw.json())
             .then((response) => {
                 // Lọc danh sách sản phẩm để chỉ lấy một sản phẩm cho mỗi thương hiệu
-                const uniqueBrands = Array.from(new Set(response.map(product => product.brandId)));
-                const brandsWithOneProduct = uniqueBrands.map(brandId => response.find(product => product.brandId === brandId));
+                const uniqueBrands = Array.from(
+                    new Set(response.map((product) => product.brandId))
+                );
+                const brandsWithOneProduct = uniqueBrands.map((brandId) =>
+                    response.find((product) => product.brandId === brandId)
+                );
                 setBrandsWithOneProduct(brandsWithOneProduct);
             })
             .catch((error) => {

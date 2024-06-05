@@ -15,8 +15,8 @@ import { useNavigate } from "react-router-dom"; // Import hook điều hướng 
 import { ROUTES } from "../constants/routes"; // Import các hằng số định tuyến
 import { actAddBill } from "../redux/features/checkoutSlice"; // Import action từ checkoutSlice
 import { actClearCarts } from "../redux/features/cartSlice";
-import { useForm, FormProvider } from 'react-hook-form';
-
+import { useForm, FormProvider } from "react-hook-form";
+import QualityDefault from "../components/QualityDefault";
 
 // Định nghĩa các biểu thức kiểm tra hợp lệ cho số điện thoại và email
 const phoneValidation = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
@@ -96,45 +96,51 @@ const OrderPage = () => {
 
     // JSX để render giao diện
     return (
-        <form className="order-page-container" onSubmit={handleSubmit(onValid)}>
-            <Row className="order-page">
-                <Col
-                    className="order-page__billing-details"
-                    xs={24}
-                    sm={24}
-                    md={12}
-                    lg={14}
-                >
-                    {/* Component chi tiết thanh toán */}
-                    <BillingDetails
-                        control={control}
-                        errors={errors}
-                        reset={reset}
-                    />
-                </Col>
-                <Col
-                    className="order-page__your-order"
-                    xs={24}
-                    sm={24}
-                    md={12}
-                    lg={10}
-                >
-                    {/* Component thông tin đơn hàng */}
-                    <FormProvider {...methods}>
-                        <YourOrder
+        <div>
+            <form
+                className="order-page-container"
+                onSubmit={handleSubmit(onValid)}
+            >
+                <Row className="order-page">
+                    <Col
+                        className="order-page__billing-details"
+                        xs={24}
+                        sm={24}
+                        md={12}
+                        lg={14}
+                    >
+                        {/* Component chi tiết thanh toán */}
+                        <BillingDetails
                             control={control}
-                            setValue={methods.setValue}
                             errors={errors}
+                            reset={reset}
                         />
-                    </FormProvider>
-                    {/* <YourOrder control={control} errors={errors} /> */}
-                    <div className="billing-detail__submit-btn">
-                        {/* Nút đặt hàng */}
-                        <Button htmlType="submit">Place order</Button>
-                    </div>
-                </Col>
-            </Row>
-        </form>
+                    </Col>
+                    <Col
+                        className="order-page__your-order"
+                        xs={24}
+                        sm={24}
+                        md={12}
+                        lg={10}
+                    >
+                        {/* Component thông tin đơn hàng */}
+                        <FormProvider {...methods}>
+                            <YourOrder
+                                control={control}
+                                setValue={methods.setValue}
+                                errors={errors}
+                            />
+                        </FormProvider>
+                        {/* <YourOrder control={control} errors={errors} /> */}
+                        <div className="billing-detail__submit-btn">
+                            {/* Nút đặt hàng */}
+                            <Button htmlType="submit">Place order</Button>
+                        </div>
+                    </Col>
+                </Row>
+            </form>
+            <QualityDefault />
+        </div>
     );
 };
 

@@ -1,9 +1,5 @@
 function BlogPage() {
-    return (
-        <div>
-            This is Blog Page
-        </div>
-    )
+    return <div>This is Blog Page</div>;
 }
 
 export default BlogPage;

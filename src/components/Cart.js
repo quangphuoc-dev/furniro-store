@@ -19,7 +19,7 @@ const Cart = () => {
     // Hàm xử lý sự kiện thay đổi số lượng sản phẩm trong giỏ hàng
     const onChangeQuantity = (id, quantity) => {
         dispatch(actUpdateQuantityOfProduct({ id: id, quantity: quantity }));
-        console.log({id: id, quantity: quantity});
+        console.log({ id: id, quantity: quantity });
     };
 
     // Hàm xử lý sự kiện xóa sản phẩm trong giỏ hàng
@@ -92,9 +92,7 @@ const Cart = () => {
                                 <div className="text-[16px] text-[#000000] font-[400px]">
                                     {cart.name}
                                 </div>
-                                <div>
-                                    Size: {cart.size}
-                                </div>
+                                <div>Size: {cart.size}</div>
                                 <div className="flex gap-4 items-center mt-[8px]">
                                     <span className="text-[16px] text-[#000000] font-[400px] block">
                                         <InputNumber
@@ -108,7 +106,6 @@ const Cart = () => {
                                             }}
                                             onChange={(value) =>
                                                 onChangeQuantity(cart.id, value)
-                                            
                                             }
                                         />
                                     </span>

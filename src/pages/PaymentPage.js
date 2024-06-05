@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"; // Hook để sử dụng Redux trong
 import { useNavigate } from "react-router-dom"; // Hook để điều hướng trong React Router
 import { ROUTES } from "../constants/routes"; // Các hằng số định tuyến của ứng dụng
 import PaymentTable from "../components/PaymentTable"; // Import component CardTable
+import QualityDefault from "../components/QualityDefault";
 
 const CartPage = () => {
     // Sử dụng hook useNavigate để điều hướng trang
@@ -54,32 +55,36 @@ const CartPage = () => {
     };
 
     return (
-        <div className="flex justify-center gap-[100px] my-[50px]">
-            <div>
-                <PaymentTable />
-            </div>
-            <div>
-                <div className="flex flex-col items-center gap-2 ">
-                    <div>Cart Totals</div>
-                    <div className="flex gap-5 bg-[#fff3e3] p-10 rounded-[10px]">
-                        <div className="flex flex-col gap-3">
-                            <p>Subtotal</p>
-                            <p>Shipping</p>
-                            <p>Total</p>
+        <div>
+            <div className="flex justify-center gap-[100px] my-[50px]">
+                <div>
+                    <PaymentTable />
+                </div>
+                <div>
+                    <div className="flex flex-col items-center gap-2 ">
+                        <div>Cart Totals</div>
+                        <div className="flex gap-5 bg-[#fff3e3] p-10 rounded-[10px]">
+                            <div className="flex flex-col gap-3">
+                                <p>Subtotal</p>
+                                <p>Shipping</p>
+                                <p>Total</p>
+                            </div>
+                            <div className="flex flex-col gap-3">
+                                <span>:</span>
+                                <span>:</span>
+                                <span>:</span>
+                            </div>
+                            <div className="flex flex-col gap-3">
+                                <span>{getTotalMoneyInBill()}</span>
+                                <p>
+                                    Shipping options will be updated during
+                                    checkout.
+                                </p>
+                                <span>{getTotalMoneyInBill()}</span>
+                            </div>
                         </div>
-                        <div className="flex flex-col gap-3">
-                            <span>:</span>
-                            <span>:</span>
-                            <span>:</span>
-                        </div>
-                        <div className="flex flex-col gap-3">
-                            <span>{getTotalMoneyInBill()}</span>
-                            <p>Shipping options will be updated during checkout.</p>
-                            <span>{getTotalMoneyInBill()}</span>
-                        </div>
-                    </div>
 
-                    {/* <div className="flex gap-3">
+                        {/* <div className="flex gap-3">
                         <span>Subtotal</span>
                         <span>{getTotalMoneyInBill()}</span>
                     </div>
@@ -94,14 +99,14 @@ const CartPage = () => {
                         <p>Total</p>
                         <span>{getTotalMoneyInBill()}</span>
                     </div> */}
-                    <div>
-                        <Button onClick={handleRedirectToCheckOut}>
-                            Proceed to checkout
-                        </Button>
+                        <div>
+                            <Button onClick={handleRedirectToCheckOut}>
+                                Proceed to checkout
+                            </Button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {/* <div className="cart-page-wrapper">
+                {/* <div className="cart-page-wrapper">
                 <div className="cart-page">
                     <div className="cart-page-shop-table">
                         <div className="cart-page-shop-table__shop-table-grp">
@@ -147,6 +152,10 @@ const CartPage = () => {
                     </div>
                 </div>
             </div> */}
+            </div>
+            <div>
+                <QualityDefault />
+            </div>
         </div>
     );
 };

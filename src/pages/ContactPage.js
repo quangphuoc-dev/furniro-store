@@ -1,9 +1,5 @@
 function ContactPage() {
-    return (
-        <div>
-            This is Contact Page
-        </div>
-    )
+    return <div>This is Contact Page</div>;
 }
 
 export default ContactPage;

@@ -3,7 +3,6 @@ import ProductInfo from "../components/ProductInfo";
 import ProductRelated from "../components/ProductRelated";
 import { useEffect } from "react";
 
-
 function ProductDetails() {
     useEffect(() => {
         window.scrollTo(0, 0);

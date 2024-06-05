@@ -30,14 +30,13 @@ const CheckoutPage = () => {
 
     return (
         <div className="check-out-container">
-            
             <div className="check-out my-5">
-            <div>
-                <Result
-                    status="success"
-                    title="Cảm ơn bạn! Đơn hàng của bạn đã được nhận"
-                />
-            </div>
+                <div>
+                    <Result
+                        status="success"
+                        title="Cảm ơn bạn! Đơn hàng của bạn đã được nhận"
+                    />
+                </div>
                 {/* Thông tin đơn hàng */}
                 <div className="check-out__infor-bill flex justify-center gap-10 py-2">
                     <div className="flex flex-col">
